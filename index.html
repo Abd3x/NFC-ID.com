@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>NFC-ID Digital Solutions — Private B2B Vorschau</title>
+<meta name="description" content="Nicht-öffentliche Vorschau für ausgewählte B2B-Geschäftspartner. NFC-ID Digital Solutions — kryptografisch gesicherte NFC- und QR-Bewertungssysteme für Deutschland.">
+<style>
+
+  :root{
+    --ink:#0A0F1C;
+    --panel:#10162A;
+    --panel-2:#141C33;
+    --panel-3:#1A233D;
+    --slate:#8A93A8;
+    --slate-dim:#5B647A;
+    --paper:#F5F6F8;
+    --paper-dim:#EBEDF2;
+    --line:rgba(255,255,255,0.09);
+    --line-soft:rgba(255,255,255,0.06);
+    --line-dark:rgba(10,15,28,0.10);
+    --brand:#0071E3;
+    --brand-dark:#0058B3;
+    --neon:#2F8CFF;
+    --neon-dim:rgba(47,140,255,0.12);
+    --neon-glow:rgba(47,140,255,0.38);
+    --gold:#FFCC00;
+    --amber:#FF9F40;
+    --amber-dim:rgba(255,159,64,0.12);
+    --white:#FFFFFF;
+    --radius:14px;
+    --radius-lg:22px;
+    --ease:cubic-bezier(.16,.84,.44,1);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--neon); color:#fff; }
+  a{ text-decoration:none; color:inherit; }
+  ul{ list-style:none; }
+  img{ display:block; max-width:100%; }
+  button{ font-family:inherit; }
+
+  h1,h2,h3,h4{
+    font-family:inherit;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.08;
+  }
+
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 32px; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brand);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px;
+    background:var(--neon); border-radius:50%;
+    box-shadow:0 0 0 4px var(--neon-dim);
+  }
+  .eyebrow.on-dark{ color:var(--neon); }
+
+  section{ position:relative; }
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.08s; }
+  .reveal-delay-2{ transition-delay:.16s; }
+  .reveal-delay-3{ transition-delay:.24s; }
+  .reveal-delay-4{ transition-delay:.32s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
+  }
+
+  :focus-visible{ outline:2px solid var(--brand); outline-offset:3px; border-radius:4px; }
+
+  /* ================= WAVE DIVIDER ================= */
+  .wave-divider{ position:relative; width:100%; height:1px; background:transparent; z-index:3; }
+  .wave-divider svg{ position:absolute; left:0; top:-23px; width:100%; height:46px; display:block; }
+
+  /* ================= GLASS NAV ================= */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid rgba(10,15,28,0.07);
+    box-shadow:0 1px 0 rgba(10,15,28,0.02);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; max-width:1240px; margin:0 auto; padding:0 32px; height:72px; }
+  .logo{ display:flex; align-items:center; gap:11px; color:var(--ink); font-weight:800; font-size:18px; letter-spacing:-0.01em; }
+  .logo-mark{
+    width:33px; height:33px; border-radius:9px;
+    background:linear-gradient(135deg, var(--brand) 0%, var(--neon) 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px -6px var(--neon-glow);
+  }
+  .logo-mark svg{ width:17px; height:17px; }
+  .logo small{ display:block; font-weight:600; font-size:10px; letter-spacing:0.06em; color:var(--slate-dim); margin-top:1px; }
+  .nav-links{ display:flex; align-items:center; gap:34px; }
+  .nav-links a{ color:var(--slate-dim); font-size:14.5px; font-weight:500; transition:color .25s var(--ease); position:relative; }
+  .nav-links a::after{ content:""; position:absolute; left:0; bottom:-6px; width:0; height:1.5px; background:var(--brand); transition:width .3s var(--ease); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+
+  .nav-cta{ display:flex; align-items:center; gap:14px; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 22px; border-radius:10px; font-size:14.5px; font-weight:600;
+    cursor:pointer; border:1px solid transparent;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-brand{ background:var(--brand); color:#fff; box-shadow:0 1px 0 rgba(255,255,255,0.2) inset, 0 10px 22px -10px rgba(0,113,227,0.55); }
+  .btn-brand:hover{ background:var(--brand-dark); transform:translateY(-2px); box-shadow:0 1px 0 rgba(255,255,255,0.2) inset, 0 16px 28px -10px rgba(0,113,227,0.6); }
+  .btn-ghost-dark{ background:transparent; color:var(--white); border-color:var(--line); }
+  .btn-ghost-dark:hover{ border-color:rgba(255,255,255,0.28); background:rgba(255,255,255,0.04); }
+  .btn-outline{ background:transparent; border-color:var(--line-dark); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--ink); transform:translateY(-2px); }
+  .btn-block{ width:100%; }
+
+  .menu-toggle{ display:none; width:38px; height:38px; border-radius:8px; border:1px solid var(--line-dark); background:transparent; color:var(--ink); cursor:pointer; align-items:center; justify-content:center; }
+
+  /* ================= HERO ================= */
+  .hero{
+    background:
+      radial-gradient(1100px 600px at 82% -10%, rgba(47,140,255,0.18), transparent 60%),
+      radial-gradient(800px 500px at 10% 10%, rgba(47,140,255,0.09), transparent 55%),
+      var(--ink);
+    padding:164px 0 116px; position:relative; overflow:hidden;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(900px 500px at 70% 10%, black, transparent 75%);
+    mask-image:radial-gradient(900px 500px at 70% 10%, black, transparent 75%);
+    pointer-events:none;
+  }
+  .hero-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center; position:relative; }
+  .hero h1{ font-size:clamp(36px, 4.4vw, 57px); color:var(--white); margin-bottom:24px; }
+  .hero h1 em{ font-style:normal; background:linear-gradient(100deg, var(--neon), #7CB8FF); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p.lead{ color:var(--slate); font-size:18px; line-height:1.65; max-width:520px; margin-bottom:36px; }
+  .hero-actions{ display:flex; align-items:center; gap:16px; margin-bottom:52px; flex-wrap:wrap; }
+  .hero-stats{ display:flex; gap:40px; padding-top:32px; border-top:1px solid var(--line); }
+  .hero-stats div strong{ display:block; font-size:26px; color:var(--white); font-weight:700; }
+  .hero-stats div span{ font-size:13px; color:var(--slate-dim); }
+
+  .verify-panel{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-lg); padding:28px; box-shadow:0 30px 80px -30px rgba(0,0,0,0.7); position:relative; }
+  .verify-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+  .verify-head .tag{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--slate-dim); text-transform:uppercase; }
+  .verify-dot{ display:flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--neon); }
+  .verify-dot i{ width:7px; height:7px; border-radius:50%; background:var(--neon); box-shadow:0 0 0 4px var(--neon-dim); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+  .nfc-visual{ height:168px; border-radius:14px; background:radial-gradient(circle at 30% 20%, rgba(47,140,255,0.24), transparent 55%), linear-gradient(155deg, #1A233D, #0D1220); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; margin-bottom:22px; position:relative; overflow:hidden; }
+  .nfc-rings{ position:relative; width:70px; height:70px; }
+  .nfc-rings span{ position:absolute; inset:0; border:1.5px solid var(--neon); border-radius:50%; opacity:0; animation:ring 2.4s ease-out infinite; }
+  .nfc-rings span:nth-child(2){ animation-delay:.6s; }
+  .nfc-rings span:nth-child(3){ animation-delay:1.2s; }
+  .nfc-rings i{ position:absolute; inset:0; margin:auto; width:30px; height:30px; background:var(--brand); border-radius:9px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 24px var(--neon-glow); }
+  @keyframes ring{ 0%{ transform:scale(0.4); opacity:0.9; } 100%{ transform:scale(2.6); opacity:0; } }
+  .hash-line{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--slate); padding:11px 0; border-bottom:1px solid var(--line-soft); }
+  .hash-line:last-of-type{ border-bottom:none; }
+  .hash-line b{ color:var(--white); font-weight:500; }
+  #hashValue{ color:var(--neon); }
+  .status-pill{ margin-top:18px; display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:9px; background:var(--neon-dim); color:var(--neon); font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.04em; border:1px solid rgba(47,140,255,0.25); }
+
+  /* ================= TRUST STRIP ================= */
+  .trust-strip{ background:var(--ink); border-top:1px solid var(--line); padding:26px 0; overflow:hidden; }
+  .trust-strip .wrap{ display:flex; align-items:center; gap:28px; }
+  .trust-strip .label{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--slate-dim); white-space:nowrap; letter-spacing:0.06em; }
+  .trust-track-wrap{ overflow:hidden; flex:1; -webkit-mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); mask-image:linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
+  .trust-track{ display:flex; gap:56px; width:max-content; animation:scrollTrust 28s linear infinite; }
+  .trust-track span{ color:var(--slate-dim); font-weight:700; font-size:16px; white-space:nowrap; opacity:.75; }
+  @keyframes scrollTrust{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ================= SECTION GENERIC ================= */
+  .section{ padding:118px 0; }
+  .section-dark{ background:var(--ink); color:var(--white); }
+  .section-head{ max-width:640px; margin-bottom:64px; }
+  .section-head h2{ font-size:clamp(30px,3.4vw,44px); }
+  .section-dark .section-head h2{ color:var(--white); }
+  .section-head p{ font-size:17px; color:var(--slate-dim); line-height:1.65; margin-top:18px; }
+  .section-dark .section-head p{ color:var(--slate); }
+
+  /* ================= PRODUKTE ================= */
+  .product-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .product-card{ background:var(--white); border:1px solid var(--line-dark); border-radius:var(--radius-lg); overflow:hidden; transition:transform .45s var(--ease), box-shadow .45s var(--ease); }
+  .product-card:hover{ transform:translateY(-8px); box-shadow:0 40px 70px -30px rgba(10,15,28,0.26); }
+  .product-media{ height:220px; overflow:hidden; position:relative; }
+  .product-media img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+  .product-card:hover .product-media img{ transform:scale(1.07); }
+  .product-media .badge{ position:absolute; top:16px; left:16px; background:rgba(10,15,28,0.8); backdrop-filter:blur(6px); color:var(--neon); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; padding:6px 11px; border-radius:100px; border:1px solid rgba(255,255,255,0.1); }
+  .product-body{ padding:26px 24px 28px; }
+  .product-body h3{ font-size:21px; margin-bottom:10px; }
+  .product-body p{ font-size:14.5px; color:var(--slate-dim); line-height:1.6; margin-bottom:18px; }
+  .product-specs{ display:flex; flex-direction:column; gap:9px; margin-bottom:20px; }
+  .product-specs li{ display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink); }
+  .product-specs li svg{ flex-shrink:0; color:var(--brand); }
+  .product-price{ display:flex; align-items:center; justify-content:space-between; padding-top:18px; border-top:1px solid var(--line-dark); }
+  .product-price a{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--brand); }
+  .product-price span{ font-size:12.5px; color:var(--slate-dim); }
+
+  /* ================= INFRASTRUKTUR ================= */
+  .flow{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; margin-top:12px; }
+  .flow-step{ background:var(--panel); border:1px solid var(--line); padding:30px 24px; position:relative; }
+  .flow-step:first-child{ border-radius:16px 0 0 16px; }
+  .flow-step:last-child{ border-radius:0 16px 16px 0; }
+  .flow-step + .flow-step{ border-left:none; }
+  .flow-num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--neon); letter-spacing:0.08em; margin-bottom:16px; display:block; }
+  .flow-step h4{ color:var(--white); font-size:17px; margin-bottom:10px; }
+  .flow-step p{ color:var(--slate); font-size:13.5px; line-height:1.6; }
+  .flow-arrow{ position:absolute; top:50%; right:-13px; transform:translateY(-50%); width:26px; height:26px; background:var(--ink); border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; color:var(--neon); }
+  .flow-step:last-child .flow-arrow{ display:none; }
+
+  .infra-specs{ margin-top:60px; display:grid; grid-template-columns:repeat(4,1fr); gap:26px; }
+  .infra-spec-card{ padding:26px 22px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+  .infra-spec-card .mono-num{ font-family:'JetBrains Mono',monospace; color:var(--neon); font-size:26px; display:block; margin-bottom:10px; }
+  .infra-spec-card h5{ color:var(--white); font-size:14.5px; font-weight:700; margin-bottom:7px; }
+  .infra-spec-card p{ color:var(--slate-dim); font-size:13px; line-height:1.55; }
+
+  /* ================= SICHERHEIT ================= */
+  .security-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .sec-card{ background:var(--white); border:1px solid var(--line-dark); border-radius:var(--radius-lg); padding:30px 26px; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease); }
+  .sec-card:hover{ transform:translateY(-6px); box-shadow:0 34px 60px -28px rgba(10,15,28,0.2); border-color:transparent; }
+  .sec-icon{ width:46px; height:46px; border-radius:12px; background:var(--neon-dim); display:flex; align-items:center; justify-content:center; color:var(--brand); margin-bottom:20px; }
+  .sec-card h4{ font-size:17.5px; margin-bottom:10px; }
+  .sec-card p{ font-size:14px; color:var(--slate-dim); line-height:1.6; }
+
+  /* live terminal panel */
+  .term-shell{ margin-top:56px; background:var(--ink); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 34px 70px -34px rgba(10,15,28,0.35); }
+  .term-top{ display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid var(--line); background:var(--panel); }
+  .term-top .dots{ display:flex; gap:7px; }
+  .term-top .dots i{ width:10px; height:10px; border-radius:50%; background:#333d52; }
+  .term-top .path{ font-family:'JetBrains Mono',monospace; color:var(--slate); font-size:12px; letter-spacing:0.02em; }
+  .term-top .rec{ font-family:'JetBrains Mono',monospace; color:var(--slate-dim); font-size:11px; letter-spacing:0.06em; }
+  .term-body{ padding:18px 22px; height:238px; overflow:hidden; position:relative; }
+  .term-line{ font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.9; color:var(--slate); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; gap:10px; opacity:0; animation:termIn .5s var(--ease) forwards; }
+  .term-line .tg{ color:var(--neon); flex-shrink:0; }
+  .term-line .ts{ margin-left:auto; color:var(--slate-dim); flex-shrink:0; padding-left:14px; }
+  @keyframes termIn{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+  .term-fade{ position:absolute; left:0; right:0; top:0; height:24px; background:linear-gradient(180deg, var(--ink), transparent); pointer-events:none; }
+
+  .security-warning{ max-width:820px; margin:22px auto 0; font-size:13px; line-height:1.7; color:var(--slate); text-align:center; }
+
+  /* access simulator */
+  .sim-wrap{ margin-top:56px; }
+  .sim-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .sim-card{ width:100%; border-radius:var(--radius-lg); padding:30px 28px; text-align:center; border:1px solid var(--line-dark); background:var(--white); position:relative; overflow:hidden; cursor:pointer; font-family:inherit; }
+  .sim-card.denied{ background:var(--ink); border-color:var(--line); }
+  .sim-card:focus-visible{ outline:2px solid var(--neon); outline-offset:4px; }
+  .device-phone{ width:94px; height:158px; margin:0 auto 18px; padding:14px 8px; border:5px solid currentColor; border-radius:20px; color:var(--brand); background:linear-gradient(155deg,#ecf5ff,#d8eaff); box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 18px 34px -22px rgba(0,113,227,.62); }
+  .sim-card.denied .device-phone{ color:#ba4751; background:linear-gradient(155deg,#2d1820,#130f18); box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 18px 34px -22px rgba(186,71,81,.6); }
+  .device-speaker{ display:block; width:28px; height:4px; margin:0 auto 13px; border-radius:99px; background:currentColor; opacity:.7; }
+  .device-screen{ display:flex; height:108px; flex-direction:column; align-items:center; justify-content:center; gap:8px; border-radius:10px; background:rgba(255,255,255,.68); font-family:'JetBrains Mono',monospace; font-size:9px; color:#0c315f; }
+  .sim-card.denied .device-screen{ background:rgba(255,255,255,.04); color:#f0a9ad; }
+  .device-screen svg{ width:27px; height:27px; }
+  .sim-badge{ width:64px; height:64px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin:0 auto 22px; }
+  .sim-card.denied .sim-badge{ background:rgba(186,71,81,.13); color:#d66a73; }
+  .sim-card.granted .sim-badge{ background:var(--neon-dim); color:var(--brand); }
+  .sim-status{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.1em; margin-bottom:10px; }
+  .sim-card.denied .sim-status{ color:#e48890; }
+  .sim-card.granted .sim-status{ color:var(--neon); }
+  .sim-card h4{ font-size:19px; margin-bottom:10px; }
+  .sim-card.denied h4{ color:var(--white); }
+  .sim-card p{ font-size:13.5px; color:var(--slate-dim); line-height:1.6; max-width:320px; margin:0 auto; }
+  .sim-card.denied p{ color:var(--slate); }
+  .sim-card .pulse-ring{ position:absolute; inset:0; border-radius:var(--radius-lg); opacity:0; }
+  .sim-card.denied.animate .pulse-ring{ box-shadow:0 0 0 0 rgba(186,71,81,.4); animation:simDenied .9s var(--ease); }
+  .sim-card.granted.animate .pulse-ring{ box-shadow:0 0 0 0 rgba(0,113,227,0.35); animation:simGranted 1s var(--ease) .15s; }
+  @keyframes simDenied{ 0%{ opacity:1; box-shadow:0 0 0 0 rgba(186,71,81,.45); } 100%{ opacity:0; box-shadow:0 0 0 26px rgba(186,71,81,0); } }
+  @keyframes simGranted{ 0%{ opacity:1; box-shadow:0 0 0 0 rgba(0,113,227,0.4); } 100%{ opacity:0; box-shadow:0 0 0 26px rgba(0,113,227,0); } }
+  .sim-vs{ display:flex; align-items:center; justify-content:center; gap:10px; margin:22px 0; color:var(--slate-dim); font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.1em; }
+  .sim-vs::before,.sim-vs::after{ content:""; flex:1; height:1px; background:var(--line-dark); }
+
+  .compliance-bar{ margin-top:56px; background:var(--ink); border-radius:var(--radius-lg); padding:38px 42px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px; }
+  .compliance-bar .left{ display:flex; align-items:center; gap:18px; }
+  .compliance-bar .left .icon{ width:52px; height:52px; border-radius:12px; background:var(--neon-dim); display:flex; align-items:center; justify-content:center; color:var(--brand); flex-shrink:0; }
+  .compliance-bar h4{ color:var(--white); font-size:17px; margin-bottom:6px; }
+  .compliance-bar p{ color:var(--slate); font-size:13.5px; max-width:460px; }
+  .compliance-badges{ display:flex; gap:12px; flex-wrap:wrap; }
+  .compliance-badges span{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--slate); border:1px solid var(--line); padding:9px 14px; border-radius:100px; }
+
+  /* ================= REVIEWS MARQUEE ================= */
+  .reviews-section{ background:var(--paper-dim); padding:118px 0; overflow:hidden; }
+  .marquee-row{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, black 6%, black 94%, transparent); mask-image:linear-gradient(90deg, transparent, black 6%, black 94%, transparent); margin-bottom:22px; }
+  .marquee-track{ display:flex; gap:20px; width:max-content; animation:marquee 46s linear infinite; }
+  .marquee-track.reverse{ animation-direction:reverse; animation-duration:52s; }
+  .marquee-row:hover .marquee-track{ animation-play-state:paused; }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .review-card{ width:360px; flex-shrink:0; background:var(--white); border:1px solid var(--line-dark); border-radius:16px; padding:24px; transition:transform .35s var(--ease), box-shadow .35s var(--ease); }
+  .review-card:hover{ transform:translateY(-5px); box-shadow:0 28px 50px -26px rgba(10,15,28,0.2); }
+  .review-top{ display:flex; align-items:center; gap:13px; margin-bottom:14px; }
+  .review-top img{ width:46px; height:46px; border-radius:50%; object-fit:cover; border:1px solid var(--line-dark); }
+  .review-top .who strong{ display:block; font-size:14px; }
+  .review-top .who span{ font-size:12px; color:var(--slate-dim); }
+  .stars{ display:flex; gap:2px; margin-bottom:12px; color:var(--gold); }
+  .review-card p{ font-size:14px; line-height:1.6; color:var(--ink); }
+
+  /* ================= PREISE ================= */
+  .pricing-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .roi-calculator{ display:grid; grid-template-columns:minmax(220px,1fr) minmax(250px,1.35fr); align-items:center; gap:28px; margin:0 0 36px; padding:24px 26px; border:1px solid var(--line-dark); border-radius:16px; background:linear-gradient(120deg,#fff,#f1f7ff); }
+  .roi-calculator label{ display:block; margin-bottom:10px; color:var(--ink); font-size:14px; font-weight:700; }
+  .roi-calculator .roi-range{ display:flex; align-items:center; gap:12px; }
+  .roi-calculator input[type="range"]{ width:100%; accent-color:var(--brand); cursor:pointer; }
+  .roi-frequency{ min-width:80px; color:var(--brand); font-family:'JetBrains Mono',monospace; font-size:13px; text-align:right; }
+  .roi-result{ color:var(--ink); font-size:15px; font-weight:700; line-height:1.45; }
+  .roi-result strong{ color:var(--brand); font-family:'JetBrains Mono',monospace; font-size:22px; }
+  .price-card{ border:1px solid var(--line-dark); border-radius:18px; padding:24px 18px; background:var(--white); transition:transform .4s var(--ease), box-shadow .4s var(--ease); position:relative; display:flex; flex-direction:column; }
+  .price-card:hover{ transform:translateY(-6px); box-shadow:0 34px 60px -28px rgba(10,15,28,0.18); }
+  .price-card.featured{ background:var(--ink); color:var(--white); border-color:var(--ink); }
+  .price-card.featured .price-desc, .price-card.featured .price-sub{ color:var(--slate); }
+  .price-card.featured li{ color:var(--white); }
+  .price-tag{ position:absolute; top:-12px; right:18px; background:var(--neon); color:#04101F; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.04em; padding:5px 11px; border-radius:100px; }
+  .price-card h3{ font-size:15.5px; margin-bottom:6px; }
+  .price-desc{ font-size:12px; color:var(--slate-dim); margin-bottom:18px; min-height:32px; line-height:1.5; }
+  .price-amount{ display:flex; align-items:baseline; gap:5px; margin-bottom:4px; flex-wrap:wrap; }
+  .price-amount strong{ font-size:26px; }
+  .price-amount span{ font-size:11.5px; color:var(--slate-dim); }
+  .price-sub{ font-size:11px; color:var(--slate-dim); margin-bottom:20px; line-height:1.5; }
+  .price-card ul{ display:flex; flex-direction:column; gap:10px; margin-bottom:22px; flex:1; }
+  .price-card li{ display:flex; align-items:flex-start; gap:8px; font-size:12px; line-height:1.45; }
+  .price-card li svg{ color:var(--brand); flex-shrink:0; margin-top:2px; width:13px; height:13px; }
+  .price-card.featured li svg{ color:var(--neon); }
+  .price-card .btn{ padding:11px 14px; font-size:13px; }
+
+  .pricing-footnote{ margin-top:34px; padding:20px 24px; border:1px dashed var(--line-dark); border-radius:14px; font-size:13px; color:var(--slate-dim); line-height:1.6; text-align:center; }
+
+  /* ================= CTA BAND ================= */
+  .cta-band{ background:var(--ink); border-radius:28px; margin:0 32px; padding:70px 60px; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; position:relative; overflow:hidden; }
+  .cta-band::before{ content:""; position:absolute; inset:0; background:radial-gradient(600px 300px at 85% 20%, rgba(47,140,255,0.22), transparent 65%); }
+  .cta-band h2{ color:var(--white); font-size:clamp(26px,3vw,36px); max-width:520px; position:relative; }
+  .cta-band p{ color:var(--slate); margin-top:12px; font-size:15px; position:relative; }
+  .cta-band .actions{ display:flex; gap:14px; position:relative; flex-wrap:wrap; }
+
+  /* ================= FOOTER ================= */
+  footer{ background:var(--ink); color:var(--slate); padding:90px 0 130px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; padding-bottom:56px; border-bottom:1px solid var(--line); }
+  .footer-brand p{ font-size:13.5px; line-height:1.7; margin-top:16px; max-width:280px; color:var(--slate-dim); }
+  .footer-col h6{ color:var(--white); font-size:13px; font-weight:700; margin-bottom:18px; letter-spacing:0.02em; }
+  .footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+  .footer-col a,.footer-col button{ font-size:13.5px; color:var(--slate-dim); transition:color .25s ease; background:none; border:none; padding:0; text-align:left; cursor:pointer; }
+  .footer-col a:hover,.footer-col button:hover{ color:var(--neon); }
+  .footer-bottom{ display:flex; align-items:center; justify-content:space-between; padding-top:26px; flex-wrap:wrap; gap:16px; }
+  .footer-bottom p{ font-size:12.5px; color:var(--slate-dim); }
+  .footer-bottom .fb-right{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .footer-bottom .fb-right button{ background:none; border:none; color:var(--slate-dim); font-size:12.5px; cursor:pointer; }
+  .footer-bottom .fb-right button:hover{ color:var(--neon); }
+  .footer-bottom .socials{ display:flex; gap:14px; }
+  .footer-bottom .socials a{ width:34px; height:34px; border-radius:9px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--slate); transition:border-color .3s ease, color .3s ease; }
+  .footer-bottom .socials a:hover{ border-color:var(--neon); color:var(--neon); }
+
+  /* ================= MODAL ================= */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(6,9,15,0.72); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; z-index:1000; opacity:0; pointer-events:none; transition:opacity .35s var(--ease); padding:24px; }
+  .modal-overlay.active{ opacity:1; pointer-events:auto; }
+  .modal-box{ background:var(--panel); border:1px solid var(--line); border-radius:20px; max-width:480px; width:100%; max-height:86vh; overflow-y:auto; padding:34px; transform:translateY(24px) scale(.97); transition:transform .4s var(--ease); box-shadow:0 60px 120px -40px rgba(0,0,0,0.8); }
+  .modal-box.wide{ max-width:660px; }
+  .modal-overlay.active .modal-box{ transform:translateY(0) scale(1); }
+  .modal-icon{ width:52px; height:52px; border-radius:13px; display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .modal-icon.good{ background:var(--neon-dim); color:var(--brand); }
+  .modal-icon.bad{ background:var(--amber-dim); color:var(--amber); }
+  .modal-box h3{ color:var(--white); font-size:21px; margin-bottom:12px; }
+  .modal-box p{ color:var(--slate); font-size:14.5px; line-height:1.65; margin-bottom:18px; }
+  .modal-steps{ display:flex; flex-direction:column; gap:14px; margin-bottom:26px; }
+  .modal-step{ display:flex; gap:12px; align-items:flex-start; }
+  .modal-step .num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:#04101F; background:var(--neon); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .modal-step p{ margin:0; font-size:13.5px; color:var(--slate); }
+  .modal-close{ width:100%; padding:13px; border-radius:10px; border:1px solid var(--line); background:transparent; color:var(--white); font-size:14px; font-weight:600; cursor:pointer; transition:background .3s ease, border-color .3s ease; }
+  .modal-close:hover{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.24); }
+
+  .qr-frame{ width:180px; height:180px; margin:0 auto 14px; background:#fff; border-radius:14px; padding:10px; }
+  .qr-caption{ text-align:center; font-size:11.5px; color:var(--slate-dim); margin-bottom:24px; }
+  .giro-price{ background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:22px; display:flex; align-items:center; justify-content:space-between; }
+  .giro-price .name{ font-size:13.5px; color:var(--white); font-weight:600; }
+  .giro-price .amt{ font-family:'JetBrains Mono',monospace; color:var(--neon); font-size:14px; }
+  .giro-trust{ text-align:center; font-size:12px; color:var(--slate-dim); margin-top:4px; margin-bottom:22px; }
+
+  .legal-body h4{ color:var(--white); font-size:14.5px; margin-top:22px; margin-bottom:8px; }
+  .legal-body h4:first-child{ margin-top:0; }
+  .legal-body p{ font-size:13px; color:var(--slate); line-height:1.7; margin-bottom:4px; }
+  .legal-fill{ color:var(--neon); font-style:normal; }
+
+  /* ================= COOKIE BANNER ================= */
+  .cookie-banner{
+    position:fixed; left:20px; right:20px; bottom:20px; max-width:600px; margin:0 auto;
+    background:rgba(16,22,42,.98); border:1px solid var(--line); border-radius:18px; padding:24px 26px;
+    z-index:1100; box-shadow:0 30px 70px -20px rgba(0,0,0,.55); opacity:0; visibility:hidden;
+    transform:translateY(calc(100% + 44px)); transition:transform .62s var(--ease), opacity .35s ease, visibility 0s linear .62s;
+  }
+  .cookie-banner.show{ opacity:1; visibility:visible; transform:translateY(0); transition:transform .62s var(--ease), opacity .35s ease; }
+  .cookie-banner h5{ color:var(--white); font-size:15px; margin-bottom:8px; }
+  .cookie-banner p{ color:var(--slate); font-size:12.5px; line-height:1.65; margin-bottom:18px; }
+  .cookie-banner p button{ background:none; border:none; padding:0; color:var(--neon); font-size:12.5px; cursor:pointer; text-decoration:underline; }
+  .cookie-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .cookie-actions .btn{ min-height:42px; padding:10px 16px; font-size:13px; flex:1; }
+  .cookie-actions .btn-outline{ background:transparent; border-color:rgba(255,255,255,.35); color:var(--white); }
+  .cookie-actions .btn-outline:hover{ background:rgba(255,255,255,.07); border-color:var(--white); }
+  @media (prefers-reduced-motion:reduce){ .cookie-banner,.cookie-banner.show{ transition:none; } }
+
+ /* ================= NFC-ID SUPPORT PANEL ================= */
+#vortexSupportPanel {
+    position: fixed;
+    bottom: 95px;
+    right: 25px;
+    width: 320px;
+    background: #10162A;
+    border: 1px solid rgba(47,140,255,0.2);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transform-origin: bottom right;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, filter 0.3s ease;
+    filter: blur(5px);
+}
+
+#vortexSupportPanel.panel-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    filter: blur(0px);
+}
+
+.vortex-launch-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 54px;
+    height: 54px;
+    background: linear-gradient(135deg, #0071e3, #004da0);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,113,227,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.vortex-launch-btn:active {
+    transform: scale(0.88);
+    box-shadow: 0 4px 12px rgba(0,113,227,0.2);
+}
+
+.vortex-launch-btn.btn-rotate svg {
+    transform: rotate(90deg);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vortex-launch-btn svg {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+  /* ================= RESPONSIVE ================= */
+  @media (max-width:1080px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .product-grid, .security-grid{ grid-template-columns:repeat(2,1fr); }
+    .flow{ grid-template-columns:repeat(2,1fr); }
+    .flow-step:nth-child(1){ border-radius:16px 16px 0 0; }
+    .flow-step:nth-child(2){ border-radius:0 16px 0 0; border-left:none; }
+    .flow-step:nth-child(3){ border-radius:0 0 0 16px; border-top:none; }
+    .flow-step:nth-child(4){ border-radius:0 0 16px 0; border-left:none; border-top:none; }
+    .flow-arrow{ display:none; }
+    .infra-specs{ grid-template-columns:repeat(2,1fr); }
+    .dash-body{ grid-template-columns:1fr; }
+    .sim-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .pricing-grid{ grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:860px){
+    .nav-links{ position:absolute; top:72px; left:0; right:0; background:var(--ink); flex-direction:column; align-items:flex-start; gap:0; border-bottom:1px solid var(--line); max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
+    .nav-links.open{ max-height:400px; }
+    .nav-links a{ padding:16px 32px; width:100%; border-bottom:1px solid var(--line-soft); color:var(--slate); }
+    .menu-toggle{ display:flex; }
+    .cta-band{ margin:0 20px; padding:50px 30px; }
+  }
+  @media (max-width:640px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding:146px 0 76px; }
+    .hero-stats{ flex-wrap:wrap; gap:26px; }
+    .product-grid, .security-grid{ grid-template-columns:1fr; }
+    .flow{ grid-template-columns:1fr; }
+    .flow-step{ border-radius:0 !important; border-left:1px solid var(--line) !important; border-top:1px solid var(--line) !important; }
+    .flow-step:first-child{ border-radius:16px 16px 0 0 !important; }
+    .flow-step:last-child{ border-radius:0 0 16px 16px !important; }
+    .infra-specs{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; gap:36px; }
+    .compliance-bar{ flex-direction:column; align-items:flex-start; }
+    .section{ padding:78px 0; }
+    .pricing-grid{ grid-template-columns:1fr; }
+    .term-body{ height:210px; }
+    .cookie-banner{ left:12px; right:12px; padding:20px; }
+    .roi-calculator{ grid-template-columns:1fr; gap:18px; padding:20px; }
+    .dash-body{ padding:16px; }
+    .dash-card{ padding:18px; }
+    .dash-toast{ top:10px; font-size:11px; }
+    .serial-input-row{ flex-direction:column; }
+    .serial-input-row .mini-btn{ width:100%; }
+    .vortex-launcher{ right:16px; bottom:16px; }
+    .vortex-head{ padding:20px; }
+    .vortex-log{ padding:20px; }
+    .vortex-form{ padding:15px 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12C4 7.58 7.58 4 12 4s8 3.58 8 8-3.58 8-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2.4" fill="#fff"/></svg></span>
+      <span>NFC-ID<small>DIGITAL SOLUTIONS</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#produkte">Produkte</a></li>
+      <li><a href="#infrastruktur">Infrastruktur</a></li>
+      <li><a href="#sicherheit">Sicherheit</a></li>
+      <li><a href="#preise">Preise</a></li>
+    </ul>
+    <div class="nav-cta">
+<a href="mailto:abdusheikho73@gmail.com" class="btn-anfragen" style="background: #0071E3; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">Jetzt anfragen</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow on-dark">AES-256 · Ende-zu-Ende verschlüsselt</div>
+      <h1>Jeder Tisch wird zum <em>sicheren</em> Bewertungsterminal.</h1>
+      <p class="lead">NFC-ID Digital Solutions verwandelt einfache Aufsteller in kryptografisch abgesicherte Erfassungspunkte — für Restaurants, Friseursalons und Cafés, die ihre Google-Bewertungen professionell, automatisiert und ohne Risiko skalieren wollen.</p>
+      <div class="hero-actions">
+        <a href="#preise" class="btn btn-brand">Preise & Tarifetesten</a>
+        <a href="#produkte" class="btn btn-ghost-dark">Produkte entdecken</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>2.480+</strong><span>Aktive Terminals in DE</span></div>
+        <div><strong>99,98 %</strong><span>Systemverfügbarkeit</span></div>
+        <div><strong>&lt; 40 ms</strong><span>Verifizierungszeit pro Scan</span></div>
+      </div>
+    </div>
+
+    <div class="verify-panel reveal">
+      <div class="verify-head">
+        <span class="tag">Live-Verifizierung</span>
+        <div class="verify-dot"><i></i>Terminal aktiv</div>
+      </div>
+      <div class="nfc-visual">
+        <div class="nfc-rings">
+          <span></span><span></span><span></span>
+          <i><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 8-8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></i>
+        </div>
+      </div>
+      <div class="hash-line"><span>Tag-ID</span><b>NFC-ID-DE-88213</b></div>
+      <div class="hash-line"><span>Signatur</span><b id="hashValue" class="mono">a4f9…</b></div>
+      <div class="hash-line"><span>Standort</span><b>Café Lindenhof, München</b></div>
+      <div class="status-pill" id="statusPill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Signatur verifiziert · Weiterleitung aktiv
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap">
+    <span class="label">VERTRAUT VON BETRIEBEN IN GANZ DEUTSCHLAND</span>
+    <div class="trust-track-wrap">
+      <div class="trust-track">
+        <span>Café Lindenhof</span><span>Barbershop Kreuzberg</span><span>Trattoria Bellavita</span><span>Frisör Schmidt & Söhne</span><span>Sushi Bar Alster</span><span>Bäckerei Hoffmann</span><span>Grill Station Ruhrpott</span><span>Beauty Lounge Nord</span>
+        <span>Café Lindenhof</span><span>Barbershop Kreuzberg</span><span>Trattoria Bellavita</span><span>Frisör Schmidt & Söhne</span><span>Sushi Bar Alster</span><span>Bäckerei Hoffmann</span><span>Grill Station Ruhrpott</span><span>Beauty Lounge Nord</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wave-divider"><svg viewBox="0 0 1440 46" preserveAspectRatio="none"><defs><linearGradient id="w1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2F8CFF" stop-opacity="0"/><stop offset="50%" stop-color="#2F8CFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/></linearGradient></defs><path d="M0,23 C240,4 480,42 720,23 C960,4 1200,42 1440,23" fill="none" stroke="url(#w1)" stroke-width="1.3"/><path d="M0,28 C240,14 480,40 720,28 C960,14 1200,40 1440,28" fill="none" stroke="url(#w1)" stroke-width="1" opacity="0.5"/></svg></div>
+<!-- ================= PRODUKTE CSS STYLES (Mobil Uyum & Mavi Tema) ================= -->
+<style>
+  /* Grid & Kart Düzeni */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  
+  .product-card {
+    background: #12131a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(47, 140, 255, 0.4);
+    box-shadow: 0 12px 30px rgba(47, 140, 255, 0.15);
+  }
+
+  .product-media {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #1a1b26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-media .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #2F8CFF;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .product-body h3 {
+    color: #ffffff;
+    font-size: 1.15rem;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+  }
+
+  .product-body p {
+    color: #a0a5b5;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+  }
+
+  .product-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+
+  .product-specs li {
+    color: #cbd2e1;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .product-specs li svg {
+    color: #2F8CFF;
+    flex-shrink: 0;
+  }
+
+  /* Fiyat Kutusu - Alt Kısma Sabitleme */
+  .product-price-box {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .price-amount {
+    color: #2F8CFF;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .price-old {
+    text-decoration: line-through;
+    color: #6c7284;
+    font-size: 0.9rem;
+    margin-right: 6px;
+  }
+
+  .price-action {
+    color: #ffffff;
+    background: rgba(47, 140, 255, 0.15);
+    border: 1px solid rgba(47, 140, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .price-action:hover {
+    background: #2F8CFF;
+    color: #fff;
+  }
+
+  /* Mobil Ekran Düzenlemeleri */
+  @media (max-width: 600px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+    .product-price-box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .price-action {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<!-- ================= PRODUKTE SECTION ================= -->
+<section class="section" id="produkte">
+  <div class="wrap">
+    
+    <!-- HEADER 1: STANDARD PRODUKTE -->
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color: #2F8CFF; border-color: #2F8CFF;">Standard Hardware</div>
+      <h2>Hardware, die aussieht wie Ihr Betrieb — nicht wie Technik.</h2>
+      <p>Jedes Terminal wird werkseitig personalisiert und ist in wenigen Minuten einsatzbereit. Kein Setup, keine App.</p>
+    </div>
+
+    <!-- STANDARD GRID -->
+    <div class="product-grid">
+      
+      <!-- 1. Çam Ağacı Kartlık -->
+      <article class="product-card reveal">
+        <div class="product-media">
+          <img src="nfc-stand.png" alt="Kiefernholz Kartenhalter">
+          <span class="badge">MINIMALISTISCH</span>
+        </div>
+        <div class="product-body">
+          <h3>Kiefernholz Kartenhalter</h3>
+          <p>Kaffee-braunes Kiefernholz im modernen Design. Ideal für Speisekarten, Visitenkarten und Tischaufsteller.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Maße: 6 x 2,5 x 1,9 cm (Schlitz: 0,3 cm)</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Leichte Neigung für beste Lesbarkeit</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Für Formate bis 4x6 Zoll</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">14,90 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal1">Details</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Şeffaf Akrilik Stand -->
+      <article class="product-card reveal reveal-delay-1">
+        <div class="product-media">
+          <img src="Aufsteller1.png" alt="Transparenter Acryl Ständer">
+          <span class="badge">PLATZSPAREND</span>
+        </div>
+        <div class="product-body">
+          <h3>Transparenter Acryl-Aufsteller</h3>
+          <p>Robuster A-Rahmen Aufsteller aus klarem Acrylglas (PMMA). Glatte Kanten und stabiler Sockel für Tische & Theken.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Material: Hochwertiges Acrylglas</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Offenes Frontdesign für leichten Wechsel</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ideal für Gastronomie, Büro & Rezeption</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">18,90 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal2">Details</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Standart NFC Kart -->
+      <article class="product-card reveal reveal-delay-2">
+        <div class="product-media">
+          <img src="nfccard.png" alt="NFC Google Review Karte Standard">
+          <span class="badge">MEISTGEWÄHLT</span>
+        </div>
+        <div class="product-body">
+          <h3>NFC Google Review Karte (Standard)</h3>
+          <p>Fertig programmierte NFC-Bewertungskarte. Wir übernehmen die Programmierung vollständig vor der Lieferung für Sie.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>13.56MHz Frequenz | 504 Byte Speicher</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Hitzebeständiges PVC & UV-Druck</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Direkte Google Business Verknüpfung</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">50,00 €</span></div>
+<button type="button" class="btn btn-brand btn-block" onclick="openNfcModal(event, 'detailModal3')">Details</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- HEADER 2: PREMIUM LINE & PAKETE -->
+    <div class="section-head reveal" style="margin-top: 80px;">
+      <div class="eyebrow" style="color: #2F8CFF; border-color: #2F8CFF;">Premium Line & Pakete</div>
+      <h2>Exklusive Lösungen für maximale Kundenbewertungen.</h2>
+      
+      <!-- Ödeme & Sipariş Koşulu Kutusu -->
+      <div style="background: rgba(47, 140, 255, 0.08); border: 1px solid rgba(47, 140, 255, 0.25); border-left: 4px solid #2F8CFF; padding: 16px 20px; border-radius: 12px; margin-top: 20px; text-align: left; color: #d0d0d0;">
+        <h4 style="color: #2F8CFF; margin: 0 0 6px 0; font-size: 1rem;">Ablauf für Premium-Bestellungen:</h4>
+        <p style="margin: 0; font-size: 0.88rem; line-height: 1.5; color: #b0b8ca;">
+          Diese Produkte werden direkt per E-Mail angefragt. Nach Bestätigung erhalten Sie eine Rechnung für die <strong>50% Anzahlung</strong>. Die verbleibenden <strong>50%</strong> werden bei der persönlichen Übergabe gegen Vorlage der Originalrechnung beglichen.
+        </p>
+      </div>
+    </div>
+
+    <!-- PREMIUM GRID -->
+    <div class="product-grid">
+
+      <!-- 4. Dokunmatik Masa Menüsü Seti -->
+      <article class="product-card reveal">
+        <div class="product-media">
+          <img src="table3.png" alt="NFC QR Tischmenü Plaketten">
+          <span class="badge">GRATIS BOX INKL.</span>
+        </div>
+        <div class="product-body">
+          <h3>NFC & QR Tischmenü Plaketten</h3>
+          <p>Selbstklebende NFC- & QR-Plaketten für Restauranttische. Erhältlich im 5er-Paket oder als 20er-Set mit Tischnummern 01 bis 20.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>5er-Paket (Ohne Nummer): <strong>20,00 €</strong></li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>20er-Set (Tischnummern 01–20): <strong>80,00 €</strong></li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Inklusive <strong>GRATIS Premium Geschenkbox</strong></li>
+          </ul>
+          <div class="product-price-box">
+            <div>
+              <span class="price-amount">20,00 €</span>
+              <span style="font-size: 0.8rem; color: #8a92a6; display: block;">20er-Set: 80,00 €</span>
+            </div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal4">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Tekli Lüks Hediye Kutusu -->
+      <article class="product-card reveal reveal-delay-1">
+        <div class="product-media">
+          <img src="pack1.jpeg" alt="Lüks Magnet Geschenkbox">
+          <span class="badge">PREMIUM BOX</span>
+        </div>
+        <div class="product-body">
+          <h3>Spezielle Luxus-Geschenkbox</h3>
+          <p>Edle schwarze Präsentbox mit Magnetverschluss, eleganter Schleife und Grußkarte. Perfekt als edle Verpackung.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Inkl. Magnetverschluss, Schleife & Karte</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Einzelkauf: <strong>14,80 €</strong></li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>GRATIS</strong> bei Tischmenü-Paketen!</li>
+          </ul>
+          <div class="product-price-box">
+            <div>
+              <span class="price-amount">14,80 €</span>
+              <span style="font-size: 0.8rem; color: #2F8CFF; display: block;">Paket-Bonus: 0,00 €</span>
+            </div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal5">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. İndirimli NTAG215 Kart -->
+      <article class="product-card reveal reveal-delay-2">
+        <div class="product-media">
+          <img src="unicard.png" alt="NFC Universal Review Karte NTAG215">
+          <span class="badge">ANGEBOT %</span>
+        </div>
+        <div class="product-body">
+          <h3>NFC Review Karte (Universal)</h3>
+          <p>Universell für iPhone & Android. Wiederbeschreibbarer NTAG215 Chip (504 Byte), sturzfestes PVC. Orijinal UVP: 30,00 €.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Frequenz: 13.56MHz | NTAG215 Chip</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Maße: 86 x 55 x 10 mm</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Beliebig oft beschreibbar</li>
+          </ul>
+          <div class="product-price-box">
+            <div>
+              <span class="price-old">22,11 €</span>
+              <span class="price-amount">16,89 €</span>
+            </div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal6">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. WhatsApp Kartı -->
+      <article class="product-card reveal">
+        <div class="product-media">
+          <img src="whatssapcard2.png" alt="WhatsApp Chat NFC Card">
+        </div>
+        <div class="product-body">
+          <h3>WhatsApp Chat NFC Card „Tap“</h3>
+          <p>NFC & QR-Kontaktkarte. Kunden tippen kurz mit dem Smartphone auf die Karte und starten sofort einen Chat mit Ihnen.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>NFC Tap & QR-Code Kombination</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Perfekt für Support & Termine</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Einfache Link-Einrichtung</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">25,40 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal7">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8. Almanca Google Stand -->
+      <article class="product-card reveal reveal-delay-1">
+        <div class="product-media">
+          <img src="nfcstand.png" alt="Google Review Tischaufsteller Deutsch">
+        </div>
+        <div class="product-body">
+          <h3>Google Review Aufsteller</h3>
+          <p>Eleganter Tischaufsteller auf Deutsch ("Bewerte uns auf Google"). NFC-Chip & dynamischer QR-Code integriert.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Deutsche Sprachversion</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>NFC Touch & Dynamischer QR-Link</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Keine App erforderlich</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">28,44 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal8">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9. Yapışkan Plaka (EN/DE Seçenekli) -->
+      <article class="product-card reveal reveal-delay-2">
+        <div class="product-media">
+          <img src="kleber2.png" alt="Google Review Klebe Plakette">
+        </div>
+        <div class="product-body">
+          <h3>Google Review Plakette (Kleber)</h3>
+          <p>Selbstklebende NFC- & QR-Plakette für Tische und Empfangstresen. Wählen Sie Ihre bevorzugte Sprachversion.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Englische Version (EN): <strong>19,64 €</strong></li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Deutsche Version (DE): <strong>27,00 €</strong></li>
+                        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Spanish Version (ES): <strong>27,00 €</strong></li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Starke Kleberückseite</li>
+          </ul>
+          <div class="product-price-box">
+            <div>
+              <span class="price-amount">19,64 €</span>
+              <span style="font-size:0.8rem; color:#2F8CFF;">DE/ES: 27,00 €</span>
+            </div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal9">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10. Anahtarlıklar -->
+      <article class="product-card reveal">
+        <div class="product-media">
+          <img src="nfc.png" alt="NFC Schlüsselanhänger Social Media">
+        </div>
+        <div class="product-body">
+          <h3>Social Media NFC Schlüsselanhänger</h3>
+          <p>Kompakte NFC-Anhänger für unterwegs. Erhältlich für Google (Schwarz/Weiß), Instagram oder Facebook.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Google, Facebook & Instagram</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Farben: Weiß oder Schwarz</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Wasserbeständig & robust</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">11,37 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal10">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11. Social Media Stand Pro -->
+      <article class="product-card reveal reveal-delay-1">
+        <div class="product-media">
+          <img src="FOTO_LINKI_EKLENECEK" alt="Social Media Aufsteller Pro">
+        </div>
+        <div class="product-body">
+          <h3>Social Media Aufsteller (Pro)</h3>
+          <p>Professioneller Tischaufsteller für Social-Media-Kanäle. Wählen Sie zwischen Schwarz oder Weiß.</p>
+          <ul class="product-specs">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Google, Facebook oder Instagram</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Farben: Elegant Schwarz / Matt Weiß</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Inkl. NFC & QR-Code</li>
+          </ul>
+          <div class="product-price-box">
+            <div><span class="price-amount">25,00 €</span></div>
+<button type="button" class="btn btn-brand btn-block" data-bs-toggle="modal" data-bs-target="#detailModal11">Details & Anfragen</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- WAVE DIVIDER -->
+<div class="wave-divider"><svg viewBox="0 0 1440 46" preserveAspectRatio="none"><defs><linearGradient id="w2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2F8CFF" stop-opacity="0"/><stop offset="50%" stop-color="#2F8CFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/></linearGradient></defs><path d="M0,23 C240,4 480,42 720,23 C960,4 1200,42 1440,23" fill="none" stroke="url(#w2)" stroke-width="1.3"/><path d="M0,28 C240,14 480,40 720,28 C960,14 1200,40 1440,28" fill="none" stroke="url(#w2)" stroke-width="1" opacity="0.5"/></svg></div>
+<!-- ================= INFRASTRUKTUR ================= -->
+<section class="section section-dark" id="infrastruktur">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Infrastruktur</div>
+      <h2>Vom Scan bis zur veröffentlichten Bewertung — in unter einer Sekunde.</h2>
+      <p>Jede Interaktion durchläuft eine vierstufige Verarbeitungskette auf deutschen Servern. Transparent, nachvollziehbar und vollständig automatisiert.</p>
+    </div>
+
+    <div class="flow reveal">
+      <div class="flow-step">
+        <span class="flow-num">01 · ERFASSUNG</span>
+        <h4>Scan am Terminal</h4>
+        <p>Gast hält Smartphone an das NFC-Feld oder scannt den QR-Code. Ein einmaliger Sitzungsschlüssel wird erzeugt.</p>
+        <span class="flow-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">02 · VERIFIZIERUNG</span>
+        <h4>Kryptografische Prüfung</h4>
+        <p>Unser Server validiert Signatur, Herkunft und Zeitstempel, um Fälschungen und Mehrfachnutzung auszuschließen.</p>
+        <span class="flow-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">03 · SMART ROUTING</span>
+        <h4>Intelligente Weiterleitung</h4>
+        <p>Anhand einer kurzen Vorabfrage entscheidet das System, ob die Bewertung zu Google oder intern geleitet wird.</p>
+        <span class="flow-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">04 · AUSWERTUNG</span>
+        <h4>Live im Händlerpanel</h4>
+        <p>Ergebnis, Uhrzeit und Standort erscheinen sofort im Verwaltungspanel — bereit für Reporting und Export.</p>
+      </div>
+    </div>
+
+    <div class="infra-specs">
+      <div class="infra-spec-card reveal">
+        <span class="mono-num">DE-1 / DE-2</span>
+        <h5>Serverstandort</h5>
+        <p>Alle Daten werden ausschließlich in zertifizierten Rechenzentren in Frankfurt und Nürnberg verarbeitet.</p>
+      </div>
+      <div class="infra-spec-card reveal reveal-delay-1">
+        <span class="mono-num">99,98 %</span>
+        <h5>Verfügbarkeit</h5>
+        <p>Redundante Infrastruktur mit automatischem Failover garantiert durchgehende Erreichbarkeit Ihrer Terminals.</p>
+      </div>
+      <div class="infra-spec-card reveal reveal-delay-2">
+        <span class="mono-num">&lt; 40 ms</span>
+        <h5>Antwortzeit</h5>
+        <p>Von der Berührung des Terminals bis zur Weiterleitung vergehen im Schnitt weniger als 40 Millisekunden.</p>
+      </div>
+      <div class="infra-spec-card reveal reveal-delay-3">
+        <span class="mono-num">24 / 7</span>
+        <h5>Systemüberwachung</h5>
+        <p>Ein dediziertes Monitoring-Team beobachtet Signaturintegrität und Netzwerkstatus rund um die Uhr.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1440 46" preserveAspectRatio="none"><defs><linearGradient id="w3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2F8CFF" stop-opacity="0"/><stop offset="50%" stop-color="#2F8CFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/></linearGradient></defs><path d="M0,23 C240,4 480,42 720,23 C960,4 1200,42 1440,23" fill="none" stroke="url(#w3)" stroke-width="1.3"/><path d="M0,28 C240,14 480,40 720,28 C960,14 1200,40 1440,28" fill="none" stroke="url(#w3)" stroke-width="1" opacity="0.5"/></svg></div>
+
+<!-- ================= SICHERHEIT ================= -->
+<section class="section" id="sicherheit">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Sicherheit</div>
+      <h2>Kryptografie, die für Banken entwickelt wurde — jetzt für Ihr Bewertungsmanagement.</h2>
+      <p>Jedes Terminal trägt einen eigenen, unveränderlichen Schlüssel. Manipulation, Klon-Angriffe und Bewertungsbetrug werden zuverlässig erkannt und blockiert.</p>
+    </div>
+
+    <div class="security-grid">
+      <div class="sec-card reveal">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h4>AES-256-Verschlüsselung</h4>
+        <p>Jede Übertragung wird mit demselben Verschlüsselungsstandard gesichert, der im Bankwesen und bei Behörden eingesetzt wird.</p>
+      </div>
+      <div class="sec-card reveal reveal-delay-1">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Individuelle Chip-Schlüssel</h4>
+        <p>Jedes Terminal erhält werkseitig einen einzigartigen kryptografischen Fingerabdruck, der nicht kopiert werden kann.</p>
+      </div>
+      <div class="sec-card reveal reveal-delay-2">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Manipulationserkennung</h4>
+        <p>Ungewöhnliche Scan-Muster oder wiederholte Signaturen werden automatisch erkannt und zur Prüfung markiert.</p>
+      </div>
+      <div class="sec-card reveal">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h4>Rotierende Sitzungsschlüssel</h4>
+        <p>Jeder Scan erzeugt einen neuen, zeitlich begrenzten Schlüssel — Wiederholungsangriffe laufen automatisch ins Leere.</p>
+      </div>
+      <div class="sec-card reveal reveal-delay-1">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v6M12 15v6M4.2 6.6l4.2 4.2M15.6 13.2l4.2 4.2M3 12h6M15 12h6M4.2 17.4l4.2-4.2M15.6 10.8l4.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h4>DSGVO-konforme Verarbeitung</h4>
+        <p>Keine Speicherung personenbezogener Gästedaten. Alle Prozesse entsprechen den Vorgaben der DSGVO und BSI-Richtlinien.</p>
+      </div>
+      <div class="sec-card reveal reveal-delay-2">
+        <div class="sec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 3 6.24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18v-4h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Lückenloses Audit-Log</h4>
+        <p>Jede Verifizierung wird revisionssicher protokolliert — vollständig einsehbar im Verwaltungspanel.</p>
+      </div>
+    </div>
+
+    <!-- live audit terminal -->
+    <div class="term-shell reveal">
+      <div class="term-top">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="path">infrastruktur-audit.nfc-id.de / live-feed</span>
+        <span class="rec">AUFZEICHNUNG AKTIV</span>
+      </div>
+      <div class="term-body" id="termBody">
+        <div class="term-fade"></div>
+      </div>
+    </div>
+    <p class="security-warning"><em>Gewöhnliche, ungeschützte QR-Codes und Standard-NFC-Tags, die von Händlern oft als harmlos angesehen werden, sind in der unsichtbaren digitalen Welt täglich hunderten von Cyber-Injektionen, URL-Manipulationen und Phishing-Angriffen ausgesetzt. NFC-ID Enterprise schützt Ihren Ruf und blockiert diese Angriffe dauerhaft auf Hardware-Ebene.
+</em></p>
+
+    <!-- access control simulator -->
+    <div class="sim-wrap">
+      <div class="eyebrow reveal" style="margin-bottom:10px;">Zugriffskontrolle in Aktion</div>
+      <div class="sim-grid reveal" id="simGrid">
+        <button class="sim-card denied" id="simDenied" type="button" aria-pressed="false">
+          <div class="pulse-ring"></div>
+          <div class="device-phone" aria-hidden="true"><span class="device-speaker"></span><div class="device-screen"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>CLONE WRITE</span></div></div>
+          <div class="sim-status" id="simDeniedStatus">UNSICHERES PROFIL</div>
+          <h4>Geklonte Geräteanfrage</h4>
+          <p id="simDeniedText">Klicken Sie, um den Versuch eines Daten-Overwrites gegen die Hardware-Sperre zu simulieren.</p>
+        </button>
+        <div class="sim-vs">VS</div>
+        <button class="sim-card granted" id="simGranted" type="button" aria-pressed="false">
+          <div class="pulse-ring"></div>
+          <div class="device-phone" aria-hidden="true"><span class="device-speaker"></span><div class="device-screen"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>TOKEN OK</span></div></div>
+          <div class="sim-status" id="simGrantedStatus">AUTHENTIFIZIERTES PROFIL</div>
+          <h4>NFC-ID Terminal</h4>
+          <p id="simGrantedText">Klicken Sie, um die Token-Prüfung und eine geschützte Verbindung zu simulieren.</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="compliance-bar reveal">
+      <div class="left">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>Geprüft nach deutschem und europäischem Recht</h4>
+          <p>Unsere Infrastruktur wird jährlich durch unabhängige Prüfstellen auf DSGVO- und ISO-Konformität kontrolliert.</p>
+        </div>
+      </div>
+      <div class="compliance-badges">
+        <span>DSGVO-KONFORM</span>
+        <span>ISO 27001 (in Prüfung)</span>
+        <span>SERVERSTANDORT: DE</span>
+        <span>BSI-ORIENTIERT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1440 46" preserveAspectRatio="none"><defs><linearGradient id="w4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2F8CFF" stop-opacity="0"/><stop offset="50%" stop-color="#2F8CFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/></linearGradient></defs><path d="M0,23 C240,4 480,42 720,23 C960,4 1200,42 1440,23" fill="none" stroke="url(#w4)" stroke-width="1.3"/><path d="M0,28 C240,14 480,40 720,28 C960,14 1200,40 1440,28" fill="none" stroke="url(#w4)" stroke-width="1" opacity="0.5"/></svg></div>
+
+<!-- ================= REVIEWS MARQUEE ================= -->
+<section class="reviews-section">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Stimmen aus der Praxis</div>
+      <h2>Inhaber, die mit NFC-ID skalieren.</h2>
+    </div>
+  </div>
+
+  <div class="marquee-row">
+    <div class="marquee-track">
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Porträt von Markus Weber"><div class="who"><strong>Markus Weber</strong><span>Inhaber, Dönermeister Berlin</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Seit dem Aufsteller auf der Theke haben wir dreimal so viele Google-Bewertungen wie vorher. Die Kunden scannen einfach beim Bezahlen — kein Aufwand für mein Team.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80" alt="Porträt von Sabine Hoffmann"><div class="who"><strong>Sabine Hoffmann</strong><span>Inhaberin, Frisör Schmidt & Söhne</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Endlich landen schlechte Erfahrungen bei uns intern statt öffentlich bei Google. Wir können reagieren, bevor daraus eine Ein-Stern-Bewertung wird.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80" alt="Porträt von Kemal Aydın"><div class="who"><strong>Kemal Aydın</strong><span>Inhaber, Barbershop Kreuzberg</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Die Einrichtung hat keine zehn Minuten gedauert. Im Panel sehe ich genau, wann meine Stoßzeiten sind und wie viele Bewertungen reinkommen.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Porträt von Julia Krämer"><div class="who"><strong>Julia Krämer</strong><span>Inhaberin, Café Lindenhof München</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Unsere Google-Bewertung ist von 4,1 auf 4,8 gestiegen — innerhalb von drei Monaten. Das Preis-Leistungs-Verhältnis ist für ein kleines Café absolut fair.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=200&q=80" alt="Porträt von Thomas Berger"><div class="who"><strong>Thomas Berger</strong><span>Geschäftsführer, Grill Station Ruhrpott</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Wir betreiben drei Filialen mit dem Multi-Standort-Set. Die zentrale Auswertung spart uns wöchentlich mehrere Stunden manueller Arbeit.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Porträt von Markus Weber"><div class="who"><strong>Markus Weber</strong><span>Inhaber, Dönermeister Berlin</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Seit dem Aufsteller auf der Theke haben wir dreimal so viele Google-Bewertungen wie vorher. Die Kunden scannen einfach beim Bezahlen — kein Aufwand für mein Team.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80" alt="Porträt von Sabine Hoffmann"><div class="who"><strong>Sabine Hoffmann</strong><span>Inhaberin, Frisör Schmidt & Söhne</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Endlich landen schlechte Erfahrungen bei uns intern statt öffentlich bei Google. Wir können reagieren, bevor daraus eine Ein-Stern-Bewertung wird.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80" alt="Porträt von Kemal Aydın"><div class="who"><strong>Kemal Aydın</strong><span>Inhaber, Barbershop Kreuzberg</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Die Einrichtung hat keine zehn Minuten gedauert. Im Panel sehe ich genau, wann meine Stoßzeiten sind und wie viele Bewertungen reinkommen.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee-row">
+    <div class="marquee-track reverse">
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" alt="Porträt von Anna Lindqvist"><div class="who"><strong>Anna Lindqvist</strong><span>Inhaberin, Sushi Bar Alster</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Der Support hat uns bei der Ersteinrichtung persönlich begleitet. Sowas erwartet man bei einem Hardware-Produkt in dieser Preisklasse nicht.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Porträt von Daniel Fischer"><div class="who"><strong>Daniel Fischer</strong><span>Inhaber, Bäckerei Hoffmann</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Die Verarbeitung der Acryl-Tischplatte ist wirklich hochwertig — passt optisch perfekt zu unserer Ladeneinrichtung. Kein Plastik-Look wie bei anderen Anbietern.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=200&q=80" alt="Porträt von Melanie Vogt"><div class="who"><strong>Melanie Vogt</strong><span>Inhaberin, Beauty Lounge Nord</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Die DSGVO-Konformität war für uns entscheidend. Wir mussten unserem Datenschutzbeauftragten nichts erklären — alles war von Anfang an sauber dokumentiert.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?auto=format&fit=crop&w=200&q=80" alt="Porträt von Stefan Roth"><div class="who"><strong>Stefan Roth</strong><span>Geschäftsführer, Trattoria Bellavita</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Wir haben vorher QR-Codes selbst gedruckt — die wurden ständig kopiert oder manipuliert. Mit den signierten NFC-Terminals ist das jetzt vorbei.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" alt="Porträt von Anna Lindqvist"><div class="who"><strong>Anna Lindqvist</strong><span>Inhaberin, Sushi Bar Alster</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Der Support hat uns bei der Ersteinrichtung persönlich begleitet. Sowas erwartet man bei einem Hardware-Produkt in dieser Preisklasse nicht.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Porträt von Daniel Fischer"><div class="who"><strong>Daniel Fischer</strong><span>Inhaber, Bäckerei Hoffmann</span></div></div>
+        <div class="stars">★★★★★</div>
+        <p>Die Verarbeitung der Acryl-Tischplatte ist wirklich hochwertig — passt optisch perfekt zu unserer Ladeneinrichtung. Kein Plastik-Look wie bei anderen Anbietern.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= PREISE (PREMIUM HARDWARE & CYBER-SCHUTZ) ================= -->
+<section class="section" id="preise" style="padding-bottom: 40px;">
+  <div class="wrap">
+    
+    <div class="section-head reveal">
+      <div class="eyebrow">Preise</div>
+      <h2>Premium Hardware & Cyber-Schutz</h2>
+      <p>Kryptografische Absicherung und exklusives Zubehör für Ihren Standort.</p>
+    </div>
+
+    <!-- PREMIUM HARDWARE & CYBER-SCHUTZ PRICING GRID -->
+    <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+
+        <!-- 1. ÜRÜN: AHŞAP STANT -->
+        <div class="price-card reveal" data-tier="Holz-Aufsteller" data-setup="10,00 €" data-recurring="" style="background: #10162A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Holz-Aufsteller</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Minimalistischer Kartenhalter aus natürlichem Holz.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 14px; color: #8B949E; text-decoration: line-through; margin-right: 8px;">15,00 €</span>
+                    <span style="font-size: 32px; color: #FFF; font-weight: 800;">10,00 €</span>
+                    <span style="font-size: 12px; color: #2F8CFF; font-weight: 600; display: block; margin-top: 4px;">Aktion / Einmalig</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ Edles, natürliches Design</li>
+                    <li>✓ Sicherer Halt für Ihre Karte</li>
+                    <li>✓ Platzsparend auf dem Tisch</li>
+                </ul>
+            </div>
+            <button class="btn-anfragen price-btn" onclick="openGirocode('Holz-Aufsteller', '10,00 €')" style="background: #0071E3; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; margin-top: 30px; cursor: pointer; width: 100%; transition: all 0.3s ease;">Anfragen</button>
+        </div>
+
+        <!-- 2. ÜRÜN: AKRİLİK/ŞEFFAF STANT -->
+        <div class="price-card reveal" data-tier="Acryl-Aufsteller" data-setup="10,00 €" data-recurring="" style="background: #10162A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10;">
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Acryl-Aufsteller</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Transparenter L-Ständer aus robustem Acryl.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 14px; color: #8B949E; text-decoration: line-through; margin-right: 8px;">15,00 €</span>
+                    <span style="font-size: 32px; color: #FFF; font-weight: 800;">10,00 €</span>
+                    <span style="font-size: 12px; color: #2F8CFF; font-weight: 600; display: block; margin-top: 4px;">Aktion / Einmalig</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ 100% transparentes Design</li>
+                    <li>✓ Perfekter Lese-Winkel (L-Form)</li>
+                    <li>✓ Leicht &amp; bruchsicher</li>
+                </ul>
+            </div>
+<button class="btn-anfragen price-btn" onclick="openGirocode('Acryl-Aufsteller', '10,00 €')" style="background: #0071E3; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; margin-top: 30px; cursor: pointer; width: 100%; transition: all 0.3s ease;">Anfragen</button>
+        </div>
+
+        <!-- 3. ÜRÜN: CYBER-SCHUTZ -->
+        <div class="price-card reveal" data-tier="Cyber-Schutz" data-setup="0,00 €" data-recurring="15,00 € / Jahr" style="background: #10162A; border: 2px solid #0071E3; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+            <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0071E3; color: white; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Empfohlen</span>
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Cyber-Schutz</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Kryptografische Absicherung und Cloud-Sicherheit für 1 Jahr.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 32px; color: #FFF; font-weight: 800;">15,00 €</span>
+                    <span style="font-size: 14px; color: #8B949E;">/ Jahr</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ 32-Bit Krypto-Schlüssel Verschlüsselung</li>
+                    <li>✓ Remote Cloud-Routing Absicherung</li>
+                    <li>✓ Aktivierung des Smart-Filter Shields</li>
+                    <li>✓ Zero-Knowledge Gästedaten-Schutz</li>
+                </ul>
+            </div>
+<button class="btn-anfragen price-btn" onclick="openGirocode('Cyber-Schutz', '15,00 €', 'Jahr')" style="background: #0071E3; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; margin-top: 30px; cursor: pointer; width: 100%; transition: all 0.3s ease;">Anfragen</button>
+        </div>
+
+        <!-- 4. ÜRÜN: STANDART NFC KART PAKETİ -->
+        <div class="price-card reveal" data-tier="Standard NFC-Karte" data-setup="50,00 €" data-recurring="" style="background: #10162A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Standard NFC-Karte</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Einfach scannen und Punkte sammeln! Individuell programmierte NFC-Karte.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 32px; color: #FFF; font-weight: 800;">50,00 €</span>
+                    <span style="font-size: 12px; color: #8B949E; display: block; margin-top: 4px;">Einmalig / Keine Folgekosten</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ One-Touch Google/Trustpilot Bewertung</li>
+                    <li>✓ Grundlegende Hardware-Sicherheit</li>
+                    <li>✓ Keine Jahresgebühr, versteckte Kosten</li>
+                </ul>
+            </div>
+<button class="btn-anfragen price-btn" onclick="openGirocode('Standard NFC-Karte', '50,00 €')" style="background: #0071E3; color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-weight: 600; margin-top: 30px; cursor: pointer; width: 100%; transition: all 0.3s ease;">Anfragen</button>        </div>
+
+        <!-- 5. ÜRÜN: PREMIUM SİBER KORUMALI NFC PAKETİ -->
+        <div class="price-card reveal" data-tier="Premium NFC & Cyber-Schutz" data-setup="50,00 €" data-recurring="15,00 € / Jahr" style="background: #10162A; border: 2px solid #0071E3; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+            <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #0071E3; color: white; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Empfohlen</span>
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Premium NFC & Cyber-Schutz</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Gepanzerter Schutz für Ihren Betrieb! Völlig gesperrt gegen Hackerangriffe.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 32px; color: #FFF; font-weight: 800;">50,00 €</span>
+                    <span style="font-size: 12px; color: #2F8CFF; font-weight: 600; display: block; margin-top: 4px;">Einmalig + 15,00 € / Jahr Cyber-Schutz</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ Alles aus dem Standard-Paket</li>
+                    <li>✓ 100% Viren- und Malware-Schutz</li>
+                    <li>✓ Cyber-Schutz-Schild inklusive</li>
+                </ul>
+            </div>
+<button class="btn-anfragen price-btn" onclick="openGirocode('Premium NFC & Cyber-Schutz', '50,00 €', '15,00 € / Jahr')" style="background: #0071E3; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; margin-top: 30px; cursor: pointer; width: 100%; transition: all 0.3s ease;">Anfragen</button>        </div>
+
+        <!-- 6. ÜRÜN: PREMIUM BOX VIP PAKET -->
+        <div class="price-card reveal" data-tier="Premium Box" data-setup="Auf Anfrage" data-recurring="" style="background: #10162A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h3 style="font-size: 20px; color: #FFF; font-weight: 700; margin-bottom: 10px;">Premium Box</h3>
+                <p style="font-size: 13px; color: #8B949E; margin-bottom: 20px;">Das schlüsselfertige VIP-Komplettpaket für Ihren Betrieb.</p>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 26px; color: #FFF; font-weight: 800;">Auf Anfrage</span>
+                    <span style="font-size: 12px; color: #8B949E; display: block; margin-top: 10px;">Individuelles B2B-Angebot</span>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #C9D1D9; line-height: 2;">
+                    <li>✓ Maße und Design nach Wunsch</li>
+                    <li>✓ Individuelles Firmenlogo &amp; Druck</li>
+                    <li>✓ Inklusive Schaufenster-Sticker</li>
+                </ul>
+            </div>
+            <a href="mailto:abdusheikho73@gmail.com" class="btn" style="background: #0071E3; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: block; text-align: center; margin-top: 30px;">Jetzt anfragen</a>
+        </div>
+
+    </div>
+  </div>
+</section>
+    <!-- ALT DİPNOT -->
+    <div class="reveal" style="text-align: center; margin: 35px auto 10px; max-width: 800px; padding: 0 20px;">
+        <div style="background: rgba(47, 140, 255, 0.08); border: 1px solid rgba(47, 140, 255, 0.2); border-radius: 12px; padding: 16px 24px; display: inline-block;">
+            <span style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: #C9D1D9; font-weight: 500; line-height: 1.5; text-align: left;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F8CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>Optionaler Cloud-Linkwechsel (z.B. Weiterleitung zu Instagram oder Facebook ändern) jederzeit aus der Ferne für nur <strong style="color: #2F8CFF; font-size: 14px;">5,00 € pro Vorgang</strong> unkompliziert möglich.</span>
+            </span>
+        </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ALT CTA BÖLÜMÜ -->
+<section style="padding-bottom:20px;">
+  <div class="cta-band reveal">
+    <div>
+      <h2>Bereit, Ihre Bewertungen sicher zu skalieren?</h2>
+      <p>Fordern Sie eine persönliche Einrichtung an — unser Team meldet sich innerhalb eines Werktags.</p>
+    </div>
+    <div class="actions">
+      <a href="mailto:abdusheikho73@gmail.com" class="btn" style="background: #0071E3; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">Jetzt anfragen</a>
+      <a href="#produkte" class="btn btn-ghost-dark">Produkte ansehen</a>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1440 46" preserveAspectRatio="none"><defs><linearGradient id="w6" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2F8CFF" stop-opacity="0"/><stop offset="50%" stop-color="#2F8CFF" stop-opacity="0.55"/><stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/></linearGradient></defs><path d="M0,23 C240,4 480,42 720,23 C960,4 1200,42 1440,23" fill="none" stroke="url(#w6)" stroke-width="1.3"/><path d="M0,28 C240,14 480,40 720,28 C960,14 1200,40 1440,28" fill="none" stroke="url(#w6)" stroke-width="1" opacity="0.5"/></svg></div>
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12C4 7.58 7.58 4 12 4s8 3.58 8 8-3.58 8-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2.4" fill="#fff"/></svg></span>
+          <span>NFC-ID<small>DIGITAL SOLUTIONS</small></span>
+        </a>
+        <p>NFC-ID Digital Solutions entwickelt kryptografisch gesicherte NFC- und QR-Systeme für die sichere Automatisierung von Google-Bewertungen deutscher Gewerbebetriebe. Diese Vorschau ist nicht öffentlich indexiert.</p>
+      </div>
+      <div class="footer-col">
+        <h6>Unternehmen</h6>
+        <ul>
+          <li><a href="#produkte">Produkte</a></li>
+          <li><a href="#infrastruktur">Infrastruktur</a></li>
+          <li><a href="#sicherheit">Sicherheit</a></li>
+          <li><a href="#preise">Preise</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Ressourcen</h6>
+        <ul>
+          <li><button id="openImpressum" type="button">Impressum</button></li>
+          <li><button id="openDatenschutz" type="button">Datenschutzerklärung</button></li>
+          <li><a href="mailto:abdusheikho73@gmail.com">Support kontaktieren</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Kontakt</h6>
+        <ul>
+          <li><a href="mailto:abdusheikho73@gmail.com">abdusheikho73@gmail.com</a></li>
+          <li><a href="#"><span class="legal-fill">Richard-Wagner-Str, 86</span>, 41515 Grevenbroich</a></li>
+          <li><a href="#">+49 (0) 176 70096490</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NFC-ID Digital Solutions. Alle Rechte vorbehalten.</p>
+      <div class="fb-right">
+        <button type="button" id="openCookieSettings">Cookie-Einstellungen</button>
+        <div class="socials">
+          <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Xing"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 10 3 14l3 4M12 4l-5 9 5 9M14 4h4l-4 7 4 9h-4l-4-9 4-7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= GENERIC MODAL ================= -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <div id="modalContent"></div>
+  </div>
+</div>
+<script>
+const roiSlider = document.getElementById('roiSlider');
+  const roiFrequency = document.getElementById('roiFrequency');
+  const roiValue = document.getElementById('roiValue');
+  let displayedRoi = 0;
+  function updateRoi(){
+    const frequency = Number(roiSlider.value);
+    const target = Math.round(frequency * 0.24);
+    roiFrequency.textContent = `${frequency.toLocaleString('de-DE')} Gäste`;
+    const start = displayedRoi;
+    const startedAt = performance.now();
+    function animate(now){
+      const progress = Math.min(1, (now - startedAt) / 260);
+      displayedRoi = Math.round(start + (target - start) * (1 - Math.pow(1 - progress, 3)));
+      roiValue.textContent = `+${displayedRoi.toLocaleString('de-DE')} €`;
+      if (progress < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
+  roiSlider.addEventListener('input', updateRoi);
+  updateRoi();
+  </script>
+</section>
+
+<!-- ================= NFC-ID SUPPORT PANEL ================= -->
+<div id="vortexSupportPanel" style="display: none;">
+    <div style="background: linear-gradient(135deg, #0071e3, #004da0); padding: 16px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: 600; font-size: 13px; letter-spacing: 0.5px;">NFC-ID Support-Center</span>
+        <button onclick="toggleSupportPanel()" style="background: none; border: none; color: white; font-size: 22px; cursor: pointer; line-height: 1; padding: 0; font-weight: 300;">&times;</button>
+    </div>
+    
+    <div style="padding: 22px; color: #E2E8F0; font-size: 13px; line-height: 1.6;">
+        <p style="margin: 0 0 10px 0; color: #2F8CFF; font-weight: 600; font-size: 14px;">Haben Sie Fragen oder benötigen Sie Hilfe?</p>
+        <p style="margin: 0 0 22px 0; color: #94A3B8; font-size: 12px;">Unser NFC-ID Expertenteam steht Ihrem Betrieb jederzeit zur Verfügung, um die Einrichtung und Absicherung vor Ort zu unterstützen.</p>
+        
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 14px; border-radius: 12px; text-align: center;">
+            <span style="display: block; color: #86868b; font-size: 10px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Zentraler Support-Kanal</span>
+            <a href="mailto:abdusheikho73@gmail.com" style="color: #2F8CFF; font-weight: 700; text-decoration: none; font-size: 13px; word-break: break-all;">abdusheikho73@gmail.com</a>
+        </div>
+    </div>
+</div>
+
+<button class="vortex-launch-btn" id="vortexLaunchen" title="Support öffnen">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</button>
+
+
+<!-- ================= COOKIE BANNER ================= -->
+<section class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" aria-hidden="true">
+  <h5 id="cookieTitle">Ihre Privatsphäre ist uns wichtig</h5>
+  <p id="cookieDescription">Wir setzen nur technisch notwendige Speicherungen ein. Reichweitenmessung und Analyse werden ausschließlich nach Ihrer ausdrücklichen Einwilligung aktiviert. Details finden Sie in unserer <button type="button" id="cookieToDatenschutz">Datenschutzerklärung</button>.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-outline" id="cookieReject" type="button">Nur essenzielle</button>
+    <button class="btn btn-brand" id="cookieAccept" type="button">Analyse akzeptieren</button>
+  </div>
+</section>
+
+<script>
+  /* ---------- mobile menu ---------- */
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* ---------- private-preview interaction deterrents ---------- */
+  const editableTarget = 'input, textarea, select, [contenteditable="true"]';
+  document.addEventListener('contextmenu', (event) => {
+    if (!event.target.closest(editableTarget)) event.preventDefault();
+  });
+  document.addEventListener('selectstart', (event) => {
+    if (!event.target.closest(editableTarget)) event.preventDefault();
+  });
+  document.addEventListener('keydown', (event) => {
+    const key = event.key.toLowerCase();
+    if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (key === 'i' || key === 'j')) || (event.ctrlKey && key === 'u')) event.preventDefault();
+  });
+
+  /* ---------- scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ---------- hero hash animation ---------- */
+  const hashEl = document.getElementById('hashValue');
+  const hexChars = '0123456789abcdef';
+  let hashCycles = 0;
+  const hashInterval = setInterval(() => {
+    let out = '';
+    for (let i = 0; i < 8; i++) out += hexChars[Math.floor(Math.random() * 16)];
+    hashEl.textContent = out + '…';
+    hashCycles++;
+    if (hashCycles > 6) { clearInterval(hashInterval); hashEl.textContent = 'a4f9c21e…verifiziert'; }
+  }, 130);
+
+  /* ---------- access-control simulator ---------- */
+  const simDenied = document.getElementById('simDenied');
+  const simGranted = document.getElementById('simGranted');
+  function runDeviceSimulation(card, status, copy, message){
+    card.classList.remove('animate');
+    void card.offsetWidth;
+    card.classList.add('animate');
+    card.setAttribute('aria-pressed', 'true');
+    status.textContent = message.status;
+    copy.textContent = message.copy;
+    window.setTimeout(() => card.setAttribute('aria-pressed', 'false'), 1000);
+  }
+  simDenied.addEventListener('click', () => runDeviceSimulation(
+    simDenied,
+    document.getElementById('simDeniedStatus'),
+    document.getElementById('simDeniedText'),
+    { status: 'ACCESS DENIED', copy: '32-Bit Hardware Lock Active — Access Denied. Der Schreibversuch wurde ohne Datenänderung verworfen.' }
+  ));
+  simGranted.addEventListener('click', () => runDeviceSimulation(
+    simGranted,
+    document.getElementById('simGrantedStatus'),
+    document.getElementById('simGrantedText'),
+    { status: 'PROTECTED CONNECTION', copy: 'Sitzungstoken validiert. Die geschützte Verbindung zum NFC-ID Terminal wurde freigegeben.' }
+  ));
+
+  /* ---------- live audit terminal ---------- */
+  const termBody = document.getElementById('termBody');
+  const termLines = [
+    ['SECURITY','Content-Security-Policy-Validierung erfolgreich'],
+    ['NETZWERK','TLS-Handshake mit Terminal DE-4471 abgeschlossen'],
+    ['AUDIT','Signaturprüfung für Tag NFC-ID-DE-88213 bestanden'],
+    ['SECURITY','Kein unautorisierter Zugriffsversuch erkannt'],
+    ['SYSTEM','Sitzungsschlüssel rotiert — Intervall 90s'],
+    ['NETZWERK','Verbindung zu Rechenzentrum Frankfurt (DE-1) stabil'],
+    ['AUDIT','Änderungsprotokoll aktualisiert — 0 Anomalien'],
+    ['SECURITY','Firewall-Regelwerk synchronisiert'],
+    ['SYSTEM','Integritätsprüfung des Backups erfolgreich'],
+    ['NETZWERK','Latenz zu Terminal München: 22ms'],
+    ['AUDIT','128 Scans in den letzten 60 Minuten verifiziert'],
+    ['SECURITY','Zertifikatskette erneut validiert'],
+    ['SYSTEM','Failover-Bereitschaft Rechenzentrum Nürnberg (DE-2) bestätigt']
+  ];
+  let termTimer = 0.8;
+  function addTermLine(){
+    const [tag, msg] = termLines[Math.floor(Math.random() * termLines.length)];
+    const row = document.createElement('div');
+    row.className = 'term-line';
+    row.innerHTML = '<span class="tg">[' + tag + ']</span><span>' + msg + '</span><span class="ts">vor ' + termTimer.toFixed(1) + 's</span>';
+    termBody.appendChild(row);
+    termTimer = 0.3 + Math.random() * 0.9;
+    const rows = termBody.querySelectorAll('.term-line');
+    if (rows.length > 8) rows[0].remove();
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+  for (let i = 0; i < 6; i++) addTermLine();
+  setInterval(addTermLine, 1900);
+
+
+/* ---------- NFC-ID Support Panel Engine ---------- */
+function toggleSupportPanel() {
+    const panel = document.getElementById('vortexSupportPanel');
+    const btn = document.getElementById('vortexLaunchen');
+    
+    if (panel && btn) {
+        if (!panel.classList.contains('panel-active')) {
+            panel.style.display = 'block';
+            setTimeout(() => {
+                panel.classList.add('panel-active');
+                btn.classList.add('btn-rotate');
+            }, 10);
+        } else {
+            panel.classList.remove('panel-active');
+            btn.classList.remove('btn-rotate');
+            setTimeout(() => {
+                panel.style.display = 'none';
+            }, 400); 
+        }
+    }
+}
+
+document.getElementById('vortexLaunchen').addEventListener('click', toggleSupportPanel);
+
+  /* ---------- unified modal system ---------- */
+  const overlay = document.getElementById('modalOverlay');
+  const modalBox = document.getElementById('modalBox');
+  const modalContent = document.getElementById('modalContent');
+
+  function closeModal(){
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  const encodedDestinations = Object.freeze({ feedbackOption: 'STJabFpXUmlZV05yTFc5d2RHbHZiZz09' });
+  function resolveEncodedDestination(encoded){
+    return window.atob(window.atob(encoded));
+  }
+  function routeToEncodedDestination(encoded){
+    const destination = resolveEncodedDestination(encoded);
+    if (destination.startsWith('#')) window.location.hash = destination;
+  }
+  function openReviewJourney(rating){
+    modalBox.classList.remove('wide');
+const serviceCopy = 'Zusätzlich steht unabhängig von der Bewertung eine private Servicehilfe zur Verfügung.';
+    modalContent.innerHTML = `
+      <div class="modal-icon good"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Feedback-Journey simuliert</h3>
+      <p>Simulation für ${rating}: Die öffentliche Review-Option wird allen Gästen gleich angeboten. ${serviceCopy}</p>
+      <div class="modal-steps">
+        <div class="modal-step"><span class="num">1</span><p>Der Gast entscheidet freiwillig, ob er eine öffentliche Bewertung abgeben möchte.</p></div>
+        <div class="modal-step"><span class="num">2</span><p>Die Einladung enthält keine Vorgabe zu Sternebewertung oder Inhalt.</p></div>
+        <div class="modal-step"><span class="num">3</span><p>Auf Wunsch kann der Gast zusätzlich den privaten Servicekontakt nutzen.</p></div>
+      </div>
+      <button class="modal-close" data-route="feedbackOption" type="button">Öffentliche Review-Option simulieren</button>
+      <button class="modal-close" data-close type="button" style="margin-top:10px;">Schließen</button>`;
+    showModal();
+  }
+  function openGood(){ openReviewJourney('5 Sterne'); }
+  function openBad(){ openReviewJourney('1–2 Sterne'); }
+
+  function qrSvg(){
+    return `<svg viewBox="0 0 200 200" width="100%" height="100%">
+      <rect x="12" y="12" width="42" height="42" fill="#0A0F1C"/><rect x="18" y="18" width="30" height="30" fill="#fff"/><rect x="24" y="24" width="18" height="18" fill="#0A0F1C"/>
+      <rect x="146" y="12" width="42" height="42" fill="#0A0F1C"/><rect x="152" y="18" width="30" height="30" fill="#fff"/><rect x="158" y="24" width="18" height="18" fill="#0A0F1C"/>
+      <rect x="12" y="146" width="42" height="42" fill="#0A0F1C"/><rect x="18" y="152" width="30" height="30" fill="#fff"/><rect x="24" y="158" width="18" height="18" fill="#0A0F1C"/>
+      <rect x="70" y="20" width="10" height="10" fill="#0A0F1C"/><rect x="90" y="20" width="16" height="10" fill="#0A0F1C"/><rect x="116" y="30" width="10" height="10" fill="#0A0F1C"/>
+      <rect x="66" y="44" width="10" height="16" fill="#0A0F1C"/><rect x="100" y="50" width="10" height="10" fill="#0A0F1C"/><rect x="122" y="58" width="16" height="10" fill="#0A0F1C"/>
+      <rect x="70" y="72" width="16" height="10" fill="#0A0F1C"/><rect x="96" y="78" width="10" height="16" fill="#0A0F1C"/><rect x="118" y="90" width="10" height="10" fill="#0A0F1C"/>
+      <rect x="20" y="70" width="10" height="10" fill="#0A0F1C"/><rect x="30" y="96" width="10" height="16" fill="#0A0F1C"/><rect x="60" y="104" width="16" height="10" fill="#0A0F1C"/>
+      <rect x="90" y="112" width="10" height="10" fill="#0A0F1C"/><rect x="110" y="120" width="16" height="10" fill="#0A0F1C"/><rect x="140" y="100" width="10" height="16" fill="#0A0F1C"/>
+      <rect x="160" y="80" width="10" height="10" fill="#0A0F1C"/><rect x="70" y="140" width="10" height="16" fill="#0A0F1C"/><rect x="96" y="150" width="16" height="10" fill="#0A0F1C"/>
+      <rect x="120" y="146" width="10" height="10" fill="#0A0F1C"/><rect x="146" y="130" width="16" height="10" fill="#0A0F1C"/><rect x="170" y="150" width="10" height="10" fill="#0A0F1C"/>
+      <rect x="60" y="126" width="10" height="10" fill="#0A0F1C"/><rect x="150" y="170" width="16" height="10" fill="#0A0F1C"/><rect x="100" y="170" width="10" height="10" fill="#0A0F1C"/>
+    </svg>`;
+  }
+
+ // Modalı Kapatan Temiz Fonksiyon
+function closeGirocodeModal() {
+  if (typeof hideModal === 'function') hideModal();
+  document.querySelectorAll('#modalBox, #modalOverlay, .modal, .modal-overlay').forEach(el => { 
+    el.classList.remove('active', 'show', 'open'); 
+    el.style.display = 'none'; 
+  });
+  document.body.style.overflow = '';
+}
+
+// Güncellenmiş openGirocode Fonksiyonu
+function openGirocode(tier, setup, recurring){
+  // 2. KEZ AÇILMASINI SAĞLAYAN KRİTİK KISIM:
+  // Kapatırken eklenen 'display: none' engelini sıfırlar
+  document.querySelectorAll('#modalBox, #modalOverlay, .modal, .modal-overlay').forEach(el => { 
+    el.style.display = ''; 
+  });
+
+  if (typeof modalBox !== 'undefined' && modalBox) {
+    modalBox.classList.remove('wide');
+  }
+
+  const priceRow = tier
+    ? `<div class="giro-price"><span class="name">${tier}</span><span class="amt">${setup}${recurring ? ' + ' + recurring : ''}</span></div>`
+    : `<div class="giro-price"><span class="name">Individuelle Anfrage</span><span class="amt">Angebot folgt</span></div>`;
+    
+  const targetContent = typeof modalContent !== 'undefined' ? modalContent : document.getElementById('modalContent');
+
+  if (targetContent) {
+    targetContent.innerHTML = `
+      <h3>Zahlungs- &amp; Kontaktanfrage</h3>
+      <p>Schließen Sie Ihre Anfrage ab, indem Sie den Betrag überweisen oder bar vor Ort bezahlen — unser Team schaltet Ihr Paket im Anschluss frei.</p>
+      ${priceRow}
+      
+      <div class="giro-price" style="margin-top: 15px;">
+        <span class="name">IBAN:</span>    
+        <span class="amt" style="font-size: 13px; letter-spacing: 0.05em; user-select: all;">DE85 3055 0000 1005 4527 90</span>
+      </div>
+      
+      <div class="giro-trust" style="margin-top: 15px; margin-bottom: 20px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 4px; color: var(--neon);"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Bequem per Überweisung oder <strong>bar vor Ort</strong> bezahlen.
+      </div>
+      
+      <button type="button" class="modal-close" onclick="closeGirocodeModal()">Schließen</button>`;
+  }
+
+  if (typeof showModal === 'function') {
+    showModal();
+  }
+}
+
+  function openImpressum(){
+    modalBox.classList.add('wide');
+    modalContent.innerHTML = `
+      <h3>Impressum</h3>
+      <div class="legal-body">
+        <h4>Angaben gemäß § 5 TMG</h4>
+        <p>NFC-ID Digital Solutions</p>
+        <p><span class="legal-fill">[Straße und Hausnummer einfügen]</span></p>
+        <p>41515 Grevenbroich, Deutschland</p>
+        <h4>Vertreten durch</h4>
+        <p><span class="legal-fill">[Name der Geschäftsführung einfügen]</span></p>
+        <h4>Kontakt</h4>
+        <p>E-Mail: abdusheikho73@gmail.com</p>
+        <h4>Registereintrag</h4>
+        <p>Eintragung im Handelsregister.</p>
+        <p>Registergericht: <span class="legal-fill">[zuständiges Amtsgericht einfügen]</span></p>
+        <p>Registernummer: <span class="legal-fill">[HRB-Nummer einfügen]</span></p>
+        <h4>Umsatzsteuer-ID</h4>
+        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: <span class="legal-fill">[USt-IdNr. einfügen]</span></p>
+        <h4>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h4>
+        <p><span class="legal-fill">[Name einfügen]</span>, Anschrift wie oben.</p>
+        <h4>EU-Streitschlichtung</h4>
+        <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit, abrufbar unter ec.europa.eu/consumers/odr. Unsere E-Mail-Adresse finden Sie oben in diesem Impressum. Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+        <h4>Haftung für Inhalte</h4>
+        <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.</p>
+        <h4>Haftung für Links</h4>
+        <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich. Bei Bekanntwerden von Rechtsverletzungen entfernen wir derartige Links umgehend.</p>
+        <h4>Urheberrecht</h4>
+        <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Jede Verwertung außerhalb der Grenzen des Urheberrechts bedarf der vorherigen schriftlichen Zustimmung.</p>
+      </div>
+      <button class="modal-close" data-close style="margin-top:22px;">Schließen</button>`;
+    showModal();
+  }
+
+  function openDatenschutz(){
+    modalBox.classList.add('wide');
+    modalContent.innerHTML = `
+      <h3>Datenschutzerklärung</h3>
+      <div class="legal-body">
+        <h4>1. Verantwortlicher</h4>
+        <p>Verantwortlich für die Datenverarbeitung auf dieser Seite ist die NFC-ID Digital Solutions, <span class="legal-fill">[Straße und Hausnummer]</span>, 41515 Grevenbroich. Kontakt: abdusheikho73@gmail.com. Details entnehmen Sie unserem Impressum.</p>
+        <h4>2. Allgemeines zur Datenverarbeitung</h4>
+        <p>Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Vorschau, zur Bearbeitung Ihrer Anfrage oder aufgrund gesetzlicher Vorgaben erforderlich ist. Rechtsgrundlagen sind Art. 6 Abs. 1 lit. a, b und f DSGVO.</p>
+        <h4>3. Hosting &amp; Serverstandort</h4>
+        <p>Diese Seite sowie die zugehörige Infrastruktur werden in zertifizierten Rechenzentren in Frankfurt und Nürnberg betrieben. Eine Übermittlung in Drittstaaten findet für den Betrieb dieser Seite nicht statt.</p>
+        <h4>4. Server-Logfiles</h4>
+        <p>Beim Aufruf dieser Seite erhebt der Hoster automatisiert technische Zugriffsdaten (u. a. gekürzte IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, verwendeter Browser). Diese Daten dienen ausschließlich der Systemsicherheit und werden nicht mit anderen Datenquellen zusammengeführt.</p>
+        <h4>5. Kontaktaufnahme per E-Mail</h4>
+        <p>Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten (u. a. E-Mail-Adresse, Name, Nachrichteninhalt) ausschließlich zur Bearbeitung Ihrer Anfrage gemäß Art. 6 Abs. 1 lit. b DSGVO.</p>
+        <h4>6. Cookies &amp; Einwilligung</h4>
+        <p>Diese Seite verwendet technisch notwendige Cookies zur Grundfunktion. Optionale, nicht notwendige Cookies werden erst nach Ihrer ausdrücklichen Einwilligung über unseren Cookie-Banner aktiviert. Sie können Ihre Auswahl jederzeit über "Cookie-Einstellungen" im Footer ändern.</p>
+        <h4>7. Schriftarten</h4>
+        <p>Diese Vorschau verwendet Systemschriftarten. Beim Laden der Schriftarten wird keine Verbindung zu einem externen Schriftanbieter aufgebaut.</p>
+        <h4>8. NFC- &amp; QR-Scan-Daten</h4>
+        <p>Beim Scan eines Terminals verarbeiten wir Tag-ID, Zeitstempel und Verifizierungsstatus. Personenbezogene Daten der scannenden Gäste werden dabei grundsätzlich nicht gespeichert.</p>
+        <h4>9. Ihre Rechte</h4>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten gemäß Art. 15–21 DSGVO.</p>
+        <h4>10. Beschwerderecht</h4>
+        <p>Ihnen steht zudem ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde zu, beispielsweise der Landesbeauftragten für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.</p>
+        <h4>11. Datensicherheit</h4>
+        <p>Wir setzen TLS-Verschlüsselung für die Übertragung sowie AES-256-Verschlüsselung für die Verarbeitung von Terminal-Signaturen ein, um Ihre Daten gegen unbefugten Zugriff zu schützen.</p>
+        <h4>12. Änderungen dieser Erklärung</h4>
+        <p>Wir passen diese Datenschutzerklärung an, sobald Änderungen der Datenverarbeitung dies erforderlich machen. Es gilt jeweils die aktuelle, auf dieser Seite veröffentlichte Fassung.</p>
+      </div>
+      <button class="modal-close" data-close style="margin-top:22px;">Schließen</button>`;
+    showModal();
+  }
+
+  function showModal(){
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('navRequestBtn').addEventListener('click', () => openGirocode(null,null,null));
+  document.getElementById('ctaRequestBtn').addEventListener('click', () => openGirocode(null,null,null));
+  document.getElementById('openImpressum').addEventListener('click', openImpressum);
+  document.getElementById('openDatenschutz').addEventListener('click', openDatenschutz);
+  document.getElementById('cookieToDatenschutz').addEventListener('click', openDatenschutz);
+
+  document.querySelectorAll('.price-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.price-card');
+      openGirocode(card.getAttribute('data-tier'), card.getAttribute('data-setup'), card.getAttribute('data-recurring'));
+    });
+  });
+
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  overlay.addEventListener('click', (e) => {
+    const routeButton = e.target.closest('[data-route]');
+    if (!routeButton) return;
+    routeToEncodedDestination(encodedDestinations[routeButton.dataset.route]);
+    closeModal();
+  });
+  overlay.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- consent gate: no analytics code is executable before opt-in ---------- */
+  const CONSENT_STORAGE_KEY = 'nfc-id-consent-v1';
+  const ANALYTICS_CATEGORY = 'analytics';
+  const cookieBanner = document.getElementById('cookieBanner');
+  const cookieAccept = document.getElementById('cookieAccept');
+  const cookieReject = document.getElementById('cookieReject');
+  const cookieSettings = document.getElementById('openCookieSettings');
+
+  function getStoredConsent(){
+    try {
+      const value = JSON.parse(window.localStorage.getItem(CONSENT_STORAGE_KEY));
+      return value && typeof value.analytics === 'boolean' ? value : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function storeConsent(analytics){
+    const selection = { analytics, recordedAt: new Date().toISOString(), version: 1 };
+    try { window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(selection)); } catch (error) { /* Consent remains valid for this page view. */ }
+    return selection;
+  }
+
+  function announceConsent(selection){
+    window.dispatchEvent(new CustomEvent('nfc-consent-change', { detail: Object.freeze({ analytics: selection.analytics }) }));
+  }
+
+  function permittedAnalyticsSource(source){
+    try {
+      const url = new URL(source, window.location.href);
+      return url.origin === window.location.origin && (url.protocol === 'https:' || url.protocol === 'http:');
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function activateDeferredAnalytics(){
+    document.querySelectorAll('script[type="text/plain"][data-consent-category="analytics"][data-src]').forEach((placeholder) => {
+      const source = placeholder.dataset.src;
+      if (placeholder.dataset.loaded === 'true' || !permittedAnalyticsSource(source)) return;
+      const analyticsScript = document.createElement('script');
+      analyticsScript.src = source;
+      analyticsScript.async = placeholder.dataset.async !== 'false';
+      analyticsScript.dataset.consentLoaded = 'true';
+      placeholder.dataset.loaded = 'true';
+      placeholder.after(analyticsScript);
+    });
+  }
+
+  function hideCookieBanner(){
+    cookieBanner.classList.remove('show');
+    cookieBanner.setAttribute('aria-hidden', 'true');
+  }
+
+  function showCookieBanner(){
+    cookieBanner.setAttribute('aria-hidden', 'false');
+    cookieBanner.classList.add('show');
+    window.setTimeout(() => cookieReject.focus(), 260);
+  }
+
+  function applyConsent(analytics){
+    const selection = storeConsent(analytics);
+    if (analytics) activateDeferredAnalytics();
+    announceConsent(selection);
+    hideCookieBanner();
+  }
+
+  window.NFCConsent = Object.freeze({
+    hasAnalyticsConsent: () => Boolean(getStoredConsent()?.analytics),
+    openSettings: showCookieBanner
+  });
+
+  const storedConsent = getStoredConsent();
+  if (storedConsent?.analytics) activateDeferredAnalytics();
+  if (!storedConsent) window.setTimeout(showCookieBanner, 280);
+
+  cookieAccept.addEventListener('click', () => applyConsent(true));
+  cookieReject.addEventListener('click', () => applyConsent(false));
+  cookieSettings.addEventListener('click', showCookieBanner);
+</script>
+  <!-- ================= SIFIR ID ÇAKIŞMALI DİNAMİK MODAL SİSTEMİ (1-11) ================= -->
+<style>
+.nfc-popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999999 !important;
+  background-color: rgba(10, 15, 29, 0.95);
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
+
+.nfc-popup-card {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  max-width: 1050px;
+  width: 100%;
+  padding: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  position: relative;
+  color: #fff;
+  margin: auto;
+}
+
+.nfc-popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.nfc-popup-close:hover {
+  background: #ef4444;
+}
+
+.nfc-main-img {
+  width: 100%;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nfc-main-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.nfc-thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.nfc-thumb-item {
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.5;
+  transition: 0.2s;
+  background: #fff;
+}
+
+.nfc-thumb-item:hover, .nfc-thumb-item.active {
+  opacity: 1;
+  border-color: #0070f3;
+}
+
+.nfc-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.nfc-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nfc-feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #cbd5e1;
+  font-size: 15px;
+}
+</style>
+
+<!-- MODAL 1: Kiefernholz Kartenhalter -->
+<div id="detailModal1" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">MINIMALISTISCH</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Kiefernholz Kartenhalter</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Kaffee-braunes Kiefernholz im modernen Design. Ideal für Speisekarten, Visitenkarten und Tischaufsteller.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Maße: 6 x 2,5 x 1,9 cm (Schlitz: 0,3 cm)</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Leichte Neigung für beste Lesbarkeit</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Für Formate bis 4x6 Zoll</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (14,90 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="nfc-stand.png" alt="Kiefernholz Kartenhalter"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'nfc-stand.png')"><img src="nfc-stand.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfc-stand-2.png')"><img src="nfc-stand-2.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfc-stand-3.jpg')"><img src="nfc-stand-3.jpg" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: Transparenter Acryl-Aufsteller -->
+<div id="detailModal2" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">PLATZSPAREND</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Transparenter Acryl-Aufsteller</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Robuster A-Rahmen Aufsteller aus klarem Acrylglas (PMMA). Glatte Kanten und stabiler Sockel für Tische & Theken.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Material: Hochwertiges Acrylglas</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Offenes Frontdesign für leichten Wechsel</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Ideal für Gastronomie, Büro & Rezeption</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (18,90 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="Aufsteller1.png" alt="Transparenter Acryl-Aufsteller"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'Aufsteller1.png')"><img src="Aufsteller1.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'Acryl-Aufsteller-1.png')"><img src="Acryl-Aufsteller-1.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'Acryl-Aufsteller-2.png')"><img src="Acryl-Aufsteller-2.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: NFC Google Review Karte (Standard) -->
+<div id="detailModal3" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">MEISTGEWÄHLT</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">NFC Google Review Karte (Standard)</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Fertig programmierte NFC-Bewertungskarte. Wir übernehmen die Programmierung vollständig vor der Lieferung für Sie.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> 13.56MHz Frequenz | 504 Byte Speicher</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Hitzebeständiges PVC & UV-Druck</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Direkte Google Business Verknüpfung</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (50,00 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="nfccard.png" alt="NFC Card Standard"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'nfccard.png')"><img src="nfccard.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfccard2.png')"><img src="nfccard2.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfccard3.png')"><img src="nfccard3.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4: NFC & QR Tischmenü Plaketten -->
+<div id="detailModal4" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">GRATIS BOX INKL.</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">NFC & QR Tischmenü Plaketten</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Selbstklebende NFC- & QR-Plaketten für Restauranttische. Erhältlich im 5er-Paket oder als 20er-Set mit Tischnummern 01 bis 20.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> 5er-Paket (Ohne Nummer): 20,00 €</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> 20er-Set (Tischnummern 01–20): 80,00 €</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Inklusive GRATIS Premium Geschenkbox</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (ab 20,00 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="table3.png" alt="Tischmenü Plaketten"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'table3.png')"><img src="table3.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'table1.png')"><img src="table1.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'table2.jpeg')"><img src="table2.jpeg" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 5: Spezielle Luxus-Geschenkbox -->
+<div id="detailModal5" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">PREMIUM BOX</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Spezielle Luxus-Geschenkbox</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Edle schwarze Präsentbox mit Magnetverschluss, eleganter Schleife und Grußkarte. Perfekt als edle Verpackung.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Inkl. Magnetverschluss, Schleife & Karte</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Einzelkauf: 14,80 €</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> GRATIS bei Tischmenü-Paketen!</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (14,80 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="pack1.jpeg" alt="Luxus Geschenkbox"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'pack1.jpeg')"><img src="pack1.jpeg" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'pack3.png')"><img src="pack3.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'pack.jpeg')"><img src="pack.jpeg" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 6: NFC Review Karte (Universal) -->
+<div id="detailModal6" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">ANGEBOT %</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">NFC Review Karte (Universal)</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Universell für iPhone & Android. Wiederbeschreibbarer NTAG215 Chip (504 Byte), sturzfestes PVC.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Frequenz: 13.56MHz | NTAG215 Chip</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Maße: 86 x 55 x 10 mm</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Beliebig oft beschreibbar</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (16,89 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="unicard.png" alt="NFC Universal Karte"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'unicard.png')"><img src="unicard.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'unicard1.png')"><img src="unicard1.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'unicard3.png')"><img src="unicard3.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 7: WhatsApp Chat NFC Card -->
+<div id="detailModal7" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">WHATSAPP TAP</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">WhatsApp Chat NFC Card „Tap“</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">NFC & QR-Kontaktkarte. Kunden tippen kurz mit dem Smartphone auf die Karte und starten sofort einen Chat mit Ihnen.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> NFC Tap & QR-Code Kombination</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Perfekt für Support & Termine</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Einfache Link-Einrichtung</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (25,40 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="whatssapcard2.png" alt="WhatsApp Card"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'whatssapcar2d.png')"><img src="whatssapcard2.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'whatssapcard.png')"><img src="whatssapcard.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'whatssapcard1.png')"><img src="whatssapcard1.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 8: Google Review Aufsteller (DE) -->
+<div id="detailModal8" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">DEUTSCH</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Google Review Aufsteller (DE)</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Eleganter Tischaufsteller auf Deutsch ("Bewerte uns auf Google"). NFC-Chip & dynamischer QR-Code integriert.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Deutsche Sprachversion</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> NFC Touch & Dynamischer QR-Link</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Keine App erforderlich</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (28,44 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="nfcstand.png" alt="Google Aufsteller DE"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'nfcstand.png')"><img src="nfcstand.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfcstand1.png')"><img src="nfcstand1.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfcstand2.png')"><img src="nfcstand2.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 9: Google Review Plakette (Kleber) -->
+<div id="detailModal9" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">EN / DE / ES OPTION</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Google Review Plakette (Kleber)</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Selbstklebende NFC- & QR-Plakette für Tische und Empfangstresen. Wählen Sie Ihre bevorzugte Sprachversion.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Englische Version (EN): 19,64 €</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Deutsche Version (DE): 27,00 €</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Starke Kleberückseite</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (ab 19,64 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="kleber.jpeg" alt="Google Klebe Plakette"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'kleber.jpeg')"><img src="kleber.jpeg" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'kleber1.png')"><img src="kleber1.png" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'kleber2.png')"><img src="kleber2.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 10: Social Media NFC Schlüsselanhänger -->
+<div id="detailModal10" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">KOMPAKT & MOBIL</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Social Media NFC Schlüsselanhänger</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Kompakte NFC-Anhänger für unterwegs. Erhältlich für Google (Schwarz/Weiß), Instagram oder Facebook.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Google, Facebook & Instagram</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Farben: Weiß oder Schwarz</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Wasserbeständig & robust</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (11,37 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="nfc.png" alt="Schlüsselanhänger"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'nfc.png')"><img src="nfc.png" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfc2.jpeg')"><img src="nfc2.jpeg" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'nfc1.png')"><img src="nfc1.png" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 11: Social Media Aufsteller (Pro) -->
+<div id="detailModal11" class="nfc-popup-overlay">
+  <div class="nfc-popup-card">
+    <button type="button" class="nfc-popup-close" onclick="closeNfcModal(event)">&times;</button>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span style="color:#0070f3; font-weight:600; font-size:14px; text-transform:uppercase;">PRO EDITION</span>
+        <h2 style="font-size: 28px; margin: 8px 0 16px; font-weight:700;">Social Media Aufsteller (Pro)</h2>
+        <p style="color: #94a3b8; font-size: 15px; margin-bottom: 24px;">Professioneller Tischaufsteller für Social-Media-Kanäle. Wählen Sie zwischen Schwarz oder Weiß.</p>
+        <ul class="nfc-feature-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Google, Facebook oder Instagram</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Farben: Elegant Schwarz / Matt Weiß</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#0070f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Inkl. NFC & QR-Code</li>
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href="#kontakt" class="btn btn-brand" onclick="closeNfcModal(event)">Jetzt Anfragen (25,00 €)</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="nfc-main-img"><img src="URUN11_RESIM1.jpg" alt="Social Media Aufsteller Pro"></div>
+        <div class="nfc-thumb-grid">
+          <div class="nfc-thumb-item active" onclick="changeImage(this, 'URUN11_RESIM1.jpg')"><img src="URUN11_RESIM1.jpg" alt="Foto 1"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'URUN11_RESIM2.jpg')"><img src="URUN11_RESIM2.jpg" alt="Foto 2"></div>
+          <div class="nfc-thumb-item" onclick="changeImage(this, 'URUN11_RESIM3.jpg')"><img src="URUN11_RESIM3.jpg" alt="Foto 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+window.changeImage = function(thumbElement, newSrc) {
+  var card = thumbElement.closest('.nfc-popup-card');
+  if (card) {
+    var mainImg = card.querySelector('.nfc-main-img img');
+    if (mainImg) {
+      mainImg.src = newSrc;
+    }
+  }
+  
+  var grid = thumbElement.closest('.nfc-thumb-grid');
+  if (grid) {
+    grid.querySelectorAll('.nfc-thumb-item').forEach(function(t) { 
+      t.classList.remove('active'); 
+    });
+  }
+  thumbElement.classList.add('active');
+};
+
+window.closeNfcModal = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  document.querySelectorAll('.nfc-popup-overlay').forEach(function(modal) {
+    modal.style.display = 'none';
+  });
+  document.body.style.overflow = '';
+};
+
+window.openNfcModal = function(e, modalId) {
+  if (e && e.preventDefault) e.preventDefault();
+  window.closeNfcModal();
+  var target = document.getElementById(modalId);
+  if (target) {
+    target.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains('nfc-popup-overlay')) {
+    window.closeNfcModal(e);
+    return;
+  }
+
+  var trigger = e.target.closest('[onclick*="openNfcModal"], [data-bs-target*="detailModal"], [data-target*="detailModal"], [href*="detailModal"]');
+  if (trigger) {
+    var attr = trigger.getAttribute('data-bs-target') || trigger.getAttribute('data-target') || trigger.getAttribute('href');
+    if (attr && attr.includes('detailModal')) {
+      e.preventDefault();
+      var modalId = attr.replace('#', '').trim();
+      window.openNfcModal(e, modalId);
+    }
+  }
+});
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    window.closeNfcModal(e);
+  }
+});
+</script>
+</script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.min.css" rel="stylesheet">
+</script>
+</body>
+</html>
