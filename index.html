@@ -1362,6 +1362,21 @@
       <p>Kryptografische Absicherung und exklusives Zubehör für Ihren Standort.</p>
     </div>
 
+    <!-- ROI-RECHNER: geschätzter Mehrumsatz nach monatlicher Kundenfrequenz -->
+    <div class="roi-calculator reveal">
+      <div>
+        <label for="roiSlider">Monatliche Kundenfrequenz</label>
+        <div class="roi-range">
+          <input type="range" id="roiSlider" min="100" max="5000" step="50" value="1200" aria-describedby="roiFrequency">
+          <span class="roi-frequency" id="roiFrequency">1.200 Gäste</span>
+        </div>
+      </div>
+      <div class="roi-result" aria-live="polite">
+        Geschätzter Mehrumsatz durch optimierte, freiwillige Kundenkommunikation<br>
+        <strong id="roiValue">+288 €</strong> / Monat
+      </div>
+    </div>
+
     <!-- PREMIUM HARDWARE & CYBER-SCHUTZ PRICING GRID -->
     <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto; padding: 0 20px;">
 
@@ -1922,11 +1937,11 @@ function openGirocode(tier, setup, recurring){
     document.body.style.overflow = 'hidden';
   }
 
-  document.getElementById('navRequestBtn').addEventListener('click', () => openGirocode(null,null,null));
-  document.getElementById('ctaRequestBtn').addEventListener('click', () => openGirocode(null,null,null));
-  document.getElementById('openImpressum').addEventListener('click', openImpressum);
-  document.getElementById('openDatenschutz').addEventListener('click', openDatenschutz);
-  document.getElementById('cookieToDatenschutz').addEventListener('click', openDatenschutz);
+  document.getElementById('navRequestBtn')?.addEventListener('click', () => openGirocode(null,null,null));
+  document.getElementById('ctaRequestBtn')?.addEventListener('click', () => openGirocode(null,null,null));
+  document.getElementById('openImpressum')?.addEventListener('click', openImpressum);
+  document.getElementById('openDatenschutz')?.addEventListener('click', openDatenschutz);
+  document.getElementById('cookieToDatenschutz')?.addEventListener('click', openDatenschutz);
 
   document.querySelectorAll('.price-btn').forEach(btn => {
     btn.addEventListener('click', () => {
