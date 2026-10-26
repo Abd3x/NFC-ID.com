@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <title>NFC-ID · Administration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    [hidden] { display: none !important; }
+    .modal-backdrop { background: rgba(2, 6, 23, .82); backdrop-filter: blur(8px); }
+    .toast { transition: opacity .2s ease, transform .2s ease; }
+    .toast-hidden { opacity: 0; transform: translateY(16px); pointer-events: none; }
+    .scrollbar-thin::-webkit-scrollbar { height: 8px; width: 8px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+  <section id="loginView" class="grid min-h-screen place-items-center px-5 py-10">
+    <div class="w-full max-w-md rounded-3xl border border-slate-700/80 bg-slate-900 p-8 shadow-2xl shadow-blue-950/50">
+      <div class="mb-8">
+        <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500 text-xl font-black text-white">N</div>
+        <p class="text-xs font-bold uppercase tracking-[.22em] text-blue-400">NFC-ID Digital Solutions</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight">Admin-Anmeldung</h1>
+        <p class="mt-2 text-sm leading-6 text-slate-400">Melden Sie sich mit Ihrem geschützten Administratorkonto an.</p>
+      </div>
+      <form id="loginForm" class="space-y-5" novalidate>
+        <label class="block text-sm font-medium text-slate-200">E-Mail-Adresse
+          <input id="loginEmail" name="email" type="email" autocomplete="email" required class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30">
+        </label>
+        <label class="block text-sm font-medium text-slate-200">Passwort
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" minlength="8" required class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30">
+        </label>
+        <p id="loginError" class="min-h-5 text-sm text-rose-400" role="alert"></p>
+        <button id="loginSubmit" type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500 disabled:cursor-wait disabled:opacity-60">
+          <span>Anmelden</span><span class="hidden h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" data-login-spinner></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <div id="dashboardView" hidden>
+    <header class="sticky top-0 z-30 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+        <div class="flex min-w-0 items-center gap-3">
+          <div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-600 font-black">N</div>
+          <div class="min-w-0">
+            <p class="truncate font-bold tracking-tight">NFC-ID Administration</p>
+            <p class="text-xs text-slate-400">Hardware, Leads &amp; Datenschutz</p>
+          </div>
+          <span class="hidden rounded-full border border-blue-400/40 bg-blue-400/10 px-2.5 py-1 text-xs font-semibold text-blue-300 sm:inline">ADMIN</span>
+        </div>
+        <button id="logoutButton" type="button" class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-medium text-slate-300 transition hover:border-rose-400 hover:text-rose-300">Abmelden</button>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-7 sm:px-6">
+      <section class="grid gap-4 sm:grid-cols-3" aria-label="Übersicht">
+        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><p class="text-sm text-slate-400">Registrierte Karten</p><p id="statCards" class="mt-2 text-3xl font-bold">—</p></article>
+        <article class="rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5"><p class="text-sm text-emerald-200/75">Aktive Weiterleitungen</p><p id="statActiveCards" class="mt-2 text-3xl font-bold text-emerald-300">—</p></article>
+        <article class="rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5"><p class="text-sm text-amber-100/75">Offene Kundenanfragen</p><p id="statPendingInquiries" class="mt-2 text-3xl font-bold text-amber-300">—</p></article>
+      </section>
+
+      <section class="mt-8 grid gap-8 lg:grid-cols-2">
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="text-xl font-bold">NFC-Karten &amp; UIDs</h2>
+              <p class="text-sm text-slate-400">NTAG215-Chip-Seriennummern und Standortverwaltung.</p>
+            </div>
+            <button id="openImportButton" type="button" class="rounded-lg bg-blue-600 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-blue-500">CSV/XLSX importieren</button>
+          </div>
+          <div id="cardsTableBody" class="scrollbar-thin mt-4 max-h-[34rem] space-y-3 overflow-y-auto pr-1"></div>
+        </div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="text-xl font-bold">Kundenanfragen (Leads)</h2>
+              <p class="text-sm text-slate-400">Eingehende B2B-Anfragen mit Werbeeinwilligung (UWG/DSGVO).</p>
+            </div>
+            <button id="openBroadcastButton" type="button" disabled class="rounded-lg border border-slate-700 px-3.5 py-2 text-sm font-semibold text-slate-200 transition hover:border-blue-400 hover:text-blue-300 disabled:cursor-not-allowed disabled:opacity-40">Marketing-Mail (<span id="selectedCount">0</span>)</button>
+          </div>
+          <div id="inquiriesTableBody" class="scrollbar-thin mt-4 max-h-[34rem] space-y-3 overflow-y-auto pr-1"></div>
+        </div>
+      </section>
+
+      <section class="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold">Review Guard · Internes Feedback</h2>
+            <p class="text-sm text-slate-400">Bewertungen mit 1–3 Sternen, die über <span class="font-mono">review-gate.html</span> abgefangen wurden.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="feedbackFilter" class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200 outline-none focus:border-blue-400">
+              <option value="0">Alle Sterne</option><option value="1">1 Stern</option><option value="2">2 Sterne</option><option value="3">3 Sterne</option>
+            </select>
+            <button id="reloadFeedbackButton" type="button" class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-medium text-slate-300 transition hover:border-blue-400 hover:text-blue-300">Aktualisieren</button>
+          </div>
+        </div>
+        <div class="scrollbar-thin mt-4 overflow-x-auto">
+          <table class="w-full min-w-[40rem] text-left text-sm">
+            <thead class="border-b border-slate-800 text-xs uppercase tracking-wider text-slate-500"><tr><th class="py-2 pr-4 font-semibold">Datum</th><th class="py-2 pr-4 font-semibold">Standort</th><th class="py-2 pr-4 font-semibold">Bewertung</th><th class="py-2 font-semibold">Nachricht</th></tr></thead>
+            <tbody id="feedbackTableBody" class="divide-y divide-slate-800"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="importModal" class="modal-backdrop fixed inset-0 z-40 grid place-items-center px-4" hidden>
+    <div class="w-full max-w-lg rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 id="importTitle" class="text-lg font-bold">Karten-Bulk-Import</h3>
+          <p class="mt-1 text-sm text-slate-400">Spalten: <span class="font-mono text-slate-300">uid</span> (Pflicht), optional <span class="font-mono text-slate-300">slug</span>, <span class="font-mono text-slate-300">url</span>. Importierte Karten bleiben bis zur Zuweisung inaktiv.</p>
+        </div>
+        <button type="button" data-close-modal class="rounded-lg px-2 py-1 text-slate-400 hover:text-white" aria-label="Schließen">✕</button>
+      </div>
+      <label id="dropzone" class="mt-5 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-700 bg-slate-950 px-4 py-9 text-center transition hover:border-blue-400">
+        <span class="text-sm font-semibold text-slate-200">Datei hierher ziehen oder klicken</span>
+        <span class="mt-1 text-xs text-slate-500">.csv oder .xlsx · max. 5 MB · max. 1.000 Zeilen</span>
+        <span id="importFileName" class="mt-3 font-mono text-xs text-blue-300"></span>
+        <input id="importFile" type="file" accept=".csv,.xlsx" class="hidden">
+      </label>
+      <div id="importResult" class="scrollbar-thin mt-4 max-h-48 overflow-y-auto text-sm" hidden></div>
+      <div class="mt-5 flex justify-end gap-3">
+        <button type="button" data-close-modal class="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 hover:border-slate-500">Schließen</button>
+        <button id="importSubmit" type="button" disabled class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40">Import starten</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="broadcastModal" class="modal-backdrop fixed inset-0 z-40 grid place-items-center px-4" hidden>
+    <div class="w-full max-w-lg rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="broadcastTitle">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 id="broadcastTitle" class="text-lg font-bold">Marketing-Mail senden</h3>
+          <p class="mt-1 text-sm text-slate-400">Der Versand erfolgt ausschließlich an Kontakte mit dokumentierter Einwilligung. Abgemeldete Adressen werden serverseitig übersprungen.</p>
+        </div>
+        <button type="button" data-close-modal class="rounded-lg px-2 py-1 text-slate-400 hover:text-white" aria-label="Schließen">✕</button>
+      </div>
+      <div class="mt-5 space-y-4">
+        <label class="block text-sm font-medium text-slate-200">Betreff
+          <input id="broadcastSubject" type="text" maxlength="180" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30">
+        </label>
+        <label class="block text-sm font-medium text-slate-200">Nachricht (HTML)
+          <textarea id="broadcastBody" rows="6" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 font-mono text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"></textarea>
+        </label>
+        <p id="broadcastError" class="min-h-5 text-sm text-rose-400" role="alert"></p>
+      </div>
+      <div class="mt-2 flex justify-end gap-3">
+        <button type="button" data-close-modal class="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 hover:border-slate-500">Abbrechen</button>
+        <button id="broadcastSubmit" type="button" class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-wait disabled:opacity-50">Jetzt senden</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastStack" class="fixed bottom-5 right-5 z-50 flex w-80 max-w-[calc(100vw-2.5rem)] flex-col gap-2"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Konfiguration: fehlertoleranter API_BASE_URL-Resolver ---------- */
+      function resolveApiBaseUrl() {
+        var override = (window.NFC_API_BASE || localStorage.getItem('nfc_api_base') || '').trim();
+        if (override) return override.replace(/\/+$/, '');
+        var loc = window.location;
+        var isLocalHost = ['localhost', '127.0.0.1', '[::1]', ''].indexOf(loc.hostname) !== -1;
+        if (loc.protocol === 'file:') return 'http://localhost:4000/api';
+        if (isLocalHost && loc.port !== '4000') return 'http://localhost:4000/api'; // Live Server (5500) → Backend
+        return loc.origin + '/api'; // Backend liefert die Seite selbst aus oder Produktion hinter Reverse-Proxy
+      }
+      var API_BASE_URL = resolveApiBaseUrl();
+
+      /* ---------- State & Hilfsfunktionen ---------- */
+      function readStored(key) {
+        var v = localStorage.getItem(key);
+        return v && v !== 'undefined' && v !== 'null' ? v : null;
+      }
+      var state = {
+        token: readStored('nfc_token'), refreshToken: readStored('nfc_refresh_token'),
+        cards: [], inquiries: [], consents: {}, feedback: [], selected: new Set(), importFile: null
+      };
+      var $ = function (id) { return document.getElementById(id); };
+      var el = {
+        loginView: $('loginView'), dashboardView: $('dashboardView'), loginForm: $('loginForm'),
+        loginEmail: $('loginEmail'), loginPassword: $('loginPassword'), loginError: $('loginError'),
+        loginSubmit: $('loginSubmit'), logoutButton: $('logoutButton'),
+        statCards: $('statCards'), statActiveCards: $('statActiveCards'), statPendingInquiries: $('statPendingInquiries'),
+        cardsTableBody: $('cardsTableBody'), inquiriesTableBody: $('inquiriesTableBody'),
+        feedbackTableBody: $('feedbackTableBody'), feedbackFilter: $('feedbackFilter'), reloadFeedbackButton: $('reloadFeedbackButton'),
+        openImportButton: $('openImportButton'), importModal: $('importModal'), dropzone: $('dropzone'),
+        importFile: $('importFile'), importFileName: $('importFileName'), importResult: $('importResult'), importSubmit: $('importSubmit'),
+        openBroadcastButton: $('openBroadcastButton'), selectedCount: $('selectedCount'), broadcastModal: $('broadcastModal'),
+        broadcastSubject: $('broadcastSubject'), broadcastBody: $('broadcastBody'), broadcastError: $('broadcastError'),
+        broadcastSubmit: $('broadcastSubmit'), toastStack: $('toastStack')
+      };
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function fmtDate(value) {
+        var d = value ? new Date(value) : null;
+        return d && !isNaN(d) ? d.toLocaleString('de-DE', { dateStyle: 'medium', timeStyle: 'short' }) : '–';
+      }
+      function firstArray() {
+        for (var i = 0; i < arguments.length; i++) if (Array.isArray(arguments[i])) return arguments[i];
+        return [];
+      }
+
+      function showToast(message, type) {
+        var palette = { success: 'border-emerald-500/40 text-emerald-200', error: 'border-rose-500/40 text-rose-200', info: 'border-slate-700 text-slate-100' };
+        var node = document.createElement('div');
+        node.className = 'toast toast-hidden rounded-xl border bg-slate-800 px-4 py-3 text-sm font-medium shadow-xl ' + (palette[type] || palette.info);
+        node.setAttribute('role', type === 'error' ? 'alert' : 'status');
+        node.textContent = message;
+        el.toastStack.appendChild(node);
+        requestAnimationFrame(function () { node.classList.remove('toast-hidden'); });
+        setTimeout(function () {
+          node.classList.add('toast-hidden');
+          setTimeout(function () { node.remove(); }, 250);
+        }, type === 'error' ? 6000 : 3500);
+      }
+
+      /* ---------- Auth: robuste Token-Extraktion & Persistenz ---------- */
+      function extractAccessToken(b) { return (b && ((b.data && b.data.tokens && b.data.tokens.accessToken) || (b.data && b.data.accessToken) || b.accessToken || b.token)) || null; }
+      function extractRefreshToken(b) { return (b && ((b.data && b.data.tokens && b.data.tokens.refreshToken) || (b.data && b.data.refreshToken) || b.refreshToken)) || null; }
+      function extractMessage(b, fallback) {
+        if (!b) return fallback;
+        var e = b.error;
+        return (e && typeof e === 'object' && e.message) || (typeof e === 'string' && e) || b.message || fallback;
+      }
+      function storeSession(body) {
+        var token = extractAccessToken(body);
+        if (!token) throw new Error('Die Anmeldung war erfolgreich, enthielt aber kein Zugriffstoken.');
+        state.token = token;
+        localStorage.setItem('nfc_token', token);
+        var refresh = extractRefreshToken(body);
+        if (refresh) { state.refreshToken = refresh; localStorage.setItem('nfc_refresh_token', refresh); }
+      }
+      function clearSession() {
+        state.token = null; state.refreshToken = null;
+        localStorage.removeItem('nfc_token'); localStorage.removeItem('nfc_refresh_token');
+      }
+      var refreshing = null;
+      function refreshSession() {
+        if (!state.refreshToken) return Promise.resolve(false);
+        if (!refreshing) {
+          refreshing = fetch(API_BASE_URL + '/auth/refresh', {
+            method: 'POST', cache: 'no-store', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refreshToken: state.refreshToken })
+          }).then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (b) { if (!b) return false; storeSession(b); return true; })
+            .catch(function () { return false; })
+            .then(function (ok) { refreshing = null; return ok; });
+        }
+        return refreshing;
+      }
+
+      /* ---------- Zentraler API-Client ---------- */
+      function ApiError(message, status) { this.message = message; this.status = status; }
+      ApiError.prototype = Object.create(Error.prototype);
+
+      async function api(path, options, retried) {
+        options = options || {};
+        var headers = { Accept: 'application/json' };
+        var body;
+        if (state.token && !options.noAuth) headers.Authorization = 'Bearer ' + state.token;
+        if (options.form) body = options.form; // Content-Type (multipart-Boundary) setzt der Browser
+        else if (options.json) { headers['Content-Type'] = 'application/json'; body = JSON.stringify(options.json); }
+
+        var res;
+        try {
+          res = await fetch(API_BASE_URL + path, { method: options.method || 'GET', headers: headers, body: body, cache: 'no-store' });
+        } catch (e) {
+          throw new ApiError('Der Server ist nicht erreichbar (' + API_BASE_URL + ').', 0);
+        }
+        if (res.status === 401 && !options.noAuth && !retried && await refreshSession()) return api(path, options, true);
+        var payload = null;
+        try { payload = await res.json(); } catch (e) { /* leere Antwort */ }
+        if (!res.ok) {
+          if (res.status === 401 && !options.noAuth) { clearSession(); render(); }
+          throw new ApiError(extractMessage(payload, 'Anfrage fehlgeschlagen (HTTP ' + res.status + ').'), res.status);
+        }
+        return payload;
+      }
+
+      /* ---------- Marketing-Status ---------- */
+      function consentFor(email) { return state.consents[String(email || '').toLowerCase()] || null; }
+      function marketingStatus(email) {
+        var c = consentFor(email);
+        if (!c) return 'pending';
+        return c.unsubscribedAt ? 'optout' : 'optin';
+      }
+      var BADGES = {
+        optin: ['Opted-in', 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'],
+        optout: ['Opted-out', 'bg-rose-500/10 text-rose-400 border-rose-500/30'],
+        pending: ['Ausstehend', 'bg-amber-500/10 text-amber-300 border-amber-500/30']
+      };
+      var INQUIRY_LABELS = { PENDING: 'Offen', CONTACTED: 'Kontaktiert', CLOSED: 'Abgeschlossen' };
+
+      /* ---------- Rendering ---------- */
+      function renderCards() {
+        el.cardsTableBody.innerHTML = state.cards.length ? state.cards.map(function (c) {
+          return '<div class="flex items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-950 p-4">' +
+            '<div class="min-w-0"><p class="truncate font-bold text-slate-200">' + esc(c.locationLabel || 'Unbekannter Standort') + '</p>' +
+            '<p class="truncate text-xs text-slate-400 font-mono">UID: ' + esc(c.cardIdentifier) + '</p></div>' +
+            '<span class="shrink-0 text-xs px-2.5 py-1 rounded-full ' + (c.isActive ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400') + '">' + (c.isActive ? 'Aktiv' : 'Inaktiv') + '</span></div>';
+        }).join('') : '<p class="text-sm text-slate-500">Keine Karten vorhanden.</p>';
+      }
+
+      function renderInquiries() {
+        el.inquiriesTableBody.innerHTML = state.inquiries.length ? state.inquiries.map(function (i) {
+          var status = marketingStatus(i.email), badge = BADGES[status], consent = consentFor(i.email);
+          var control = status === 'optin'
+            ? '<input type="checkbox" data-select-id="' + esc(consent.id) + '" class="mt-1 h-4 w-4 shrink-0 accent-blue-500"' + (state.selected.has(consent.id) ? ' checked' : '') + ' aria-label="Für Marketing-Mail auswählen">'
+            : '<span class="mt-1 h-4 w-4 shrink-0 text-center text-xs text-slate-600" title="Versand gesperrt" aria-label="Versand gesperrt">⛔</span>';
+          return '<div class="rounded-xl border border-slate-800 bg-slate-950 p-4"><div class="flex items-start gap-3">' + control +
+            '<div class="min-w-0 flex-1"><p class="truncate font-bold text-slate-200">' + esc(i.companyName || '–') + ' (' + esc(i.fullName) + ')</p>' +
+            '<p class="truncate text-xs text-slate-400">' + esc(i.email) + ' • ' + esc(i.phone || '-') + '</p>' +
+            '<div class="mt-2 flex flex-wrap items-center gap-2"><span class="text-xs px-2 py-0.5 rounded border ' + badge[1] + '">' + badge[0] + '</span>' +
+            (status === 'optout' ? '<span class="text-xs text-slate-500">Abmeldung: ' + esc(fmtDate(consent.unsubscribedAt)) + '</span>' : '') +
+            (status === 'pending' ? '<span class="text-xs text-slate-500">Keine Einwilligung erfasst</span>' : '') + '</div></div>' +
+            '<span class="shrink-0 text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">' + esc(INQUIRY_LABELS[i.status] || i.status) + '</span></div></div>';
+        }).join('') : '<p class="text-sm text-slate-500">Keine Anfragen vorhanden.</p>';
+        updateSelection();
+      }
+
+      function renderFeedback(message) {
+        var wanted = Number(el.feedbackFilter.value);
+        var rows = state.feedback.filter(function (f) { return !wanted || Number(f.rating) === wanted; });
+        if (message) { el.feedbackTableBody.innerHTML = '<tr><td colspan="4" class="py-6 text-sm text-slate-500">' + esc(message) + '</td></tr>'; return; }
+        el.feedbackTableBody.innerHTML = rows.length ? rows.map(function (f) {
+          var r = Math.max(0, Math.min(5, Number(f.rating) || 0));
+          return '<tr class="align-top"><td class="whitespace-nowrap py-3 pr-4 text-slate-400">' + esc(fmtDate(f.createdAt)) + '</td>' +
+            '<td class="py-3 pr-4 text-slate-200">' + esc((f.card && (f.card.locationLabel || f.card.cardIdentifier)) || 'Unbekannt') + '</td>' +
+            '<td class="whitespace-nowrap py-3 pr-4 text-amber-300" aria-label="' + r + ' von 5 Sternen">' + '★'.repeat(r) + '<span class="text-slate-700">' + '★'.repeat(5 - r) + '</span></td>' +
+            '<td class="py-3 text-slate-300">' + esc(f.message) + '</td></tr>';
+        }).join('') : '<tr><td colspan="4" class="py-6 text-sm text-slate-500">Kein internes Feedback vorhanden.</td></tr>';
+      }
+
+      function render() {
+        if (!state.token) {
+          el.loginView.hidden = false; el.dashboardView.hidden = true; return;
+        }
+        el.loginView.hidden = true; el.dashboardView.hidden = false;
+        el.statCards.textContent = state.cards.length;
+        el.statActiveCards.textContent = state.cards.filter(function (c) { return c.isActive; }).length;
+        el.statPendingInquiries.textContent = state.inquiries.filter(function (i) { return i.status === 'PENDING'; }).length;
+        renderCards(); renderInquiries(); renderFeedback();
+      }
+
+      /* ---------- Daten laden ---------- */
+      async function loadFeedback() {
+        try {
+          var b = await api('/review-guard/feedback');
+          var d = b && b.data;
+          state.feedback = firstArray(d && d.feedback, d && d.items, d, b);
+          renderFeedback();
+        } catch (e) {
+          state.feedback = [];
+          renderFeedback(e.status === 404
+            ? 'Der Admin-Endpunkt GET /api/review-guard/feedback ist im Backend noch nicht eingerichtet.'
+            : 'Feedback konnte nicht geladen werden: ' + e.message);
+        }
+      }
+
+      async function loadData() {
+        if (!state.token) { render(); return; }
+        var results = await Promise.allSettled([
+          api('/cards?limit=100'), api('/inquiries?limit=100'), api('/admin/marketing/recipients')
+        ]);
+        if (!state.token) return; // Sitzung ist währenddessen abgelaufen
+        var cards = results[0], inquiries = results[1], consents = results[2];
+        if (cards.status === 'fulfilled') { var cd = cards.value && cards.value.data; state.cards = firstArray(cd && cd.cards, cd && cd.items, cd, cards.value); }
+        else showToast('Karten: ' + cards.reason.message, 'error');
+        if (inquiries.status === 'fulfilled') { var idata = inquiries.value && inquiries.value.data; state.inquiries = firstArray(idata && idata.inquiries, idata, inquiries.value); }
+        else showToast('Anfragen: ' + inquiries.reason.message, 'error');
+        state.consents = {};
+        if (consents.status === 'fulfilled') {
+          firstArray(consents.value && consents.value.data && consents.value.data.recipients).forEach(function (c) { state.consents[String(c.email).toLowerCase()] = c; });
+        } else showToast('Einwilligungen: ' + consents.reason.message, 'error');
+        state.selected.forEach(function (id) { // Auswahl auf noch gültige Opt-ins begrenzen
+          var valid = Object.keys(state.consents).some(function (k) { return state.consents[k].id === id && !state.consents[k].unsubscribedAt; });
+          if (!valid) state.selected.delete(id);
+        });
+        render();
+        loadFeedback();
+      }
+
+      /* ---------- Login / Logout ---------- */
+      el.loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        el.loginError.textContent = '';
+        el.loginSubmit.disabled = true;
+        el.loginSubmit.querySelector('[data-login-spinner]').classList.remove('hidden');
+        try {
+          var body = await api('/auth/login', { method: 'POST', noAuth: true, json: { email: el.loginEmail.value.trim(), password: el.loginPassword.value } });
+          storeSession(body);
+          el.loginPassword.value = '';
+          showToast('Erfolgreich angemeldet.', 'success');
+          await loadData();
+        } catch (err) {
+          el.loginError.textContent = err.message || 'Anmeldung fehlgeschlagen.';
+        } finally {
+          el.loginSubmit.disabled = false;
+          el.loginSubmit.querySelector('[data-login-spinner]').classList.add('hidden');
+        }
+      });
+
+      el.logoutButton.addEventListener('click', function () {
+        clearSession();
+        state.cards = []; state.inquiries = []; state.consents = {}; state.feedback = []; state.selected.clear();
+        render();
+      });
+
+      /* ---------- Modale ---------- */
+      function openModal(node) { node.hidden = false; }
+      function closeModals() { el.importModal.hidden = true; el.broadcastModal.hidden = true; }
+      document.querySelectorAll('[data-close-modal]').forEach(function (b) { b.addEventListener('click', closeModals); });
+      [el.importModal, el.broadcastModal].forEach(function (m) { m.addEventListener('mousedown', function (e) { if (e.target === m) closeModals(); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
+
+      /* ---------- CSV/XLSX-Import ---------- */
+      function setImportFile(file) {
+        el.importResult.hidden = true; el.importResult.innerHTML = '';
+        if (file && !/\.(csv|xlsx)$/i.test(file.name)) { showToast('Nur CSV- und XLSX-Dateien sind erlaubt.', 'error'); file = null; }
+        if (file && file.size > 5 * 1024 * 1024) { showToast('Die Datei überschreitet das Limit von 5 MB.', 'error'); file = null; }
+        state.importFile = file || null;
+        el.importFileName.textContent = file ? file.name : '';
+        el.importSubmit.disabled = !file;
+      }
+      el.openImportButton.addEventListener('click', function () { el.importFile.value = ''; setImportFile(null); openModal(el.importModal); });
+      el.importFile.addEventListener('change', function () { setImportFile(el.importFile.files[0]); });
+      ['dragenter', 'dragover'].forEach(function (n) { el.dropzone.addEventListener(n, function (e) { e.preventDefault(); el.dropzone.classList.add('border-blue-400'); }); });
+      ['dragleave', 'drop'].forEach(function (n) { el.dropzone.addEventListener(n, function (e) { e.preventDefault(); el.dropzone.classList.remove('border-blue-400'); }); });
+      el.dropzone.addEventListener('drop', function (e) { setImportFile(e.dataTransfer.files[0]); });
+
+      el.importSubmit.addEventListener('click', async function () {
+        if (!state.importFile) return;
+        el.importSubmit.disabled = true; el.importSubmit.textContent = 'Import läuft …';
+        try {
+          var form = new FormData();
+          form.append('file', state.importFile);
+          var b = await api('/cards/bulk-import', { method: 'POST', form: form });
+          var r = (b && b.data) || {};
+          var failures = firstArray(r.failures);
+          el.importResult.hidden = false;
+          el.importResult.innerHTML = '<p class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-emerald-200">' + esc(r.imported || 0) + ' von ' + esc(r.received || 0) + ' Karten importiert.</p>' +
+            (failures.length ? '<ul class="mt-2 space-y-1 text-xs text-rose-300">' + failures.map(function (f) {
+              return '<li class="rounded-lg border border-rose-500/20 bg-rose-500/5 px-3 py-1.5">Zeile ' + esc(f.row) + (f.identifier ? ' (' + esc(f.identifier) + ')' : '') + ': ' + esc(f.message) + '</li>';
+            }).join('') + '</ul>' : '');
+          showToast(failures.length ? (r.imported || 0) + ' importiert, ' + failures.length + ' fehlgeschlagen.' : 'Import erfolgreich abgeschlossen.', failures.length ? 'info' : 'success');
+          state.importFile = null; el.importFile.value = ''; el.importFileName.textContent = '';
+          await loadData();
+        } catch (err) {
+          el.importResult.hidden = false;
+          el.importResult.innerHTML = '<p class="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-rose-200">' + esc(err.message) + '</p>';
+          showToast('Import fehlgeschlagen: ' + err.message, 'error');
+          el.importSubmit.disabled = false;
+        } finally {
+          el.importSubmit.textContent = 'Import starten';
+        }
+      });
+
+      /* ---------- Marketing-Versand (nur Opt-ins) ---------- */
+      function updateSelection() {
+        el.selectedCount.textContent = state.selected.size;
+        el.openBroadcastButton.disabled = state.selected.size === 0;
+      }
+      el.inquiriesTableBody.addEventListener('change', function (e) {
+        var id = e.target.getAttribute && e.target.getAttribute('data-select-id');
+        if (!id) return;
+        if (e.target.checked) state.selected.add(id); else state.selected.delete(id);
+        updateSelection();
+      });
+      el.openBroadcastButton.addEventListener('click', function () { el.broadcastError.textContent = ''; openModal(el.broadcastModal); });
+      el.broadcastSubmit.addEventListener('click', async function () {
+        var subject = el.broadcastSubject.value.trim(), htmlBody = el.broadcastBody.value.trim();
+        if (subject.length < 3 || htmlBody.length < 3) { el.broadcastError.textContent = 'Bitte Betreff und Nachricht ausfüllen.'; return; }
+        el.broadcastError.textContent = '';
+        el.broadcastSubmit.disabled = true;
+        try {
+          var b = await api('/admin/broadcast', { method: 'POST', json: { subject: subject, htmlBody: htmlBody, consentIds: Array.from(state.selected) } });
+          var c = b && b.data && b.data.campaign;
+          showToast('Kampagne gestartet' + (c ? ' (' + c.recipientCount + ' Empfänger).' : '.'), 'success');
+          state.selected.clear(); el.broadcastSubject.value = ''; el.broadcastBody.value = '';
+          closeModals(); renderInquiries();
+        } catch (err) {
+          el.broadcastError.textContent = err.message;
+        } finally {
+          el.broadcastSubmit.disabled = false;
+        }
+      });
+
+      /* ---------- Review Guard ---------- */
+      el.reloadFeedbackButton.addEventListener('click', loadFeedback);
+      el.feedbackFilter.addEventListener('change', function () { renderFeedback(); });
+
+      /* ---------- Start ---------- */
+      render();
+      if (state.token) loadData();
+    })();
+  </script>
+</body>
+</html>

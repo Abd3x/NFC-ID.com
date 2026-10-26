@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <title>Ihr Feedback · NFC-ID</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; background: #020617; color: #e2e8f0; }
+    main { box-sizing: border-box; width: min(100% - 32px, 540px); padding: 32px; border: 1px solid #334155; border-radius: 24px; background: #0f172a; box-shadow: 0 24px 56px rgb(0 0 0 / .3); }
+    .brand { color: #60a5fa; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 12px 0 8px; font-size: clamp(26px, 6vw, 34px); letter-spacing: -.03em; }
+    p { color: #94a3b8; line-height: 1.6; }
+    .ratings { display: flex; gap: 8px; margin: 26px 0; }
+    .rating { flex: 1; border: 1px solid #475569; border-radius: 14px; padding: 14px 4px; background: #111c31; color: #fbbf24; font-size: 22px; cursor: pointer; }
+    .rating:hover, .rating:focus-visible { border-color: #60a5fa; outline: 2px solid #60a5fa; outline-offset: 2px; }
+    textarea, button { box-sizing: border-box; width: 100%; font: inherit; }
+    textarea { min-height: 130px; margin: 14px 0; padding: 12px; border: 1px solid #475569; border-radius: 12px; background: #020617; color: #e2e8f0; resize: vertical; }
+    .submit { border: 0; border-radius: 12px; padding: 13px 18px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; }
+    .submit:disabled, .rating:disabled { cursor: wait; opacity: .6; }
+    .error { min-height: 22px; color: #fda4af; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="brand">NFC-ID Feedback</p>
+    <h1>Wie war Ihr Erlebnis?</h1>
+    <p>Ihre Rückmeldung hilft dem Unternehmen, seinen Service zu verbessern.</p>
+    <div id="ratingButtons" class="ratings" aria-label="Bewertung auswählen">
+      <button class="rating" type="button" data-rating="1" aria-label="1 von 5 Sternen">★</button>
+      <button class="rating" type="button" data-rating="2" aria-label="2 von 5 Sternen">★★</button>
+      <button class="rating" type="button" data-rating="3" aria-label="3 von 5 Sternen">★★★</button>
+      <button class="rating" type="button" data-rating="4" aria-label="4 von 5 Sternen">★★★★</button>
+      <button class="rating" type="button" data-rating="5" aria-label="5 von 5 Sternen">★★★★★</button>
+    </div>
+    <form id="feedbackForm" hidden novalidate>
+      <label for="feedbackMessage">Was können wir verbessern?</label>
+      <textarea id="feedbackMessage" minlength="3" maxlength="2000" required placeholder="Beschreiben Sie Ihr Erlebnis kurz …"></textarea>
+      <button id="feedbackSubmit" class="submit" type="submit">Privates Feedback senden</button>
+    </form>
+    <p id="message" class="error" role="alert"></p>
+  </main>
+  <script>
+const API_BASE_URL = window.location.origin.includes('localhost') ? 'http://localhost:4000/api' : '/api';
+    (() => {
+      'use strict';
+      const identifier = new URLSearchParams(window.location.search).get('card') || new URLSearchParams(window.location.search).get('identifier');
+      const message = document.getElementById('message');
+      const form = document.getElementById('feedbackForm');
+      const buttons = [...document.querySelectorAll('.rating')];
+      let selectedRating = null;
+      const setBusy = (busy) => { buttons.forEach((button) => { button.disabled = busy; }); document.getElementById('feedbackSubmit').disabled = busy; };
+      async function submit(rating, text) {
+        if (!identifier) throw new Error('Diese Feedback-Seite enthält keine Kartenkennung.');
+        setBusy(true); message.textContent = '';
+        try {
+          const response = await fetch(`${API_BASE_URL}/review-guard/feedback`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ identifier, rating, ...(text ? { message: text } : {}) }) });
+          const body = await response.json().catch(() => null);
+          if (!response.ok || !body?.success) throw new Error(body?.error?.message || 'Feedback konnte nicht gespeichert werden.');
+          if (body.data.redirectUrl) { window.location.assign(body.data.redirectUrl); return; }
+          form.hidden = true; document.getElementById('ratingButtons').hidden = true; message.style.color = '#86efac'; message.textContent = 'Vielen Dank. Ihr Feedback wurde privat an das Unternehmen weitergegeben.';
+        } catch (error) { message.textContent = error.message || 'Feedback konnte nicht gespeichert werden.'; setBusy(false); }
+      }
+      buttons.forEach((button) => button.addEventListener('click', () => { selectedRating = Number(button.dataset.rating); if (selectedRating >= 4) { void submit(selectedRating); return; } form.hidden = false; document.getElementById('feedbackMessage').focus(); }));
+      form.addEventListener('submit', (event) => { event.preventDefault(); if (!form.reportValidity() || !selectedRating) return; void submit(selectedRating, document.getElementById('feedbackMessage').value.trim()); });
+      if (!identifier) { message.textContent = 'Diese Feedback-Seite ist nicht korrekt verknüpft.'; buttons.forEach((button) => { button.disabled = true; }); }
+    })();
+  </script>
+</body>
+</html>

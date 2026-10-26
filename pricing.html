@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preise | NFC-ID Digital Solutions</title>
+    <!-- Gerekli CSS ve Yazı Tipleri (Kısaltılmıştır) -->
+    <style>
+        :root { 
+    --ink: #0B0F14; 
+    --primary: #0071e3; 
+    --white: #FFFFFF; 
+}
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Giriş Animasyonu */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3D Havaya Kalkma ve Yumuşak Apple Gölgeleri */
+.card-premium {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06) !important;
+}
+
+/* Hatalı Kutuyu Tam Ortaya Sabitleyen Yeni Kod */
+.qr-box-fix {
+    width: 180px; 
+    height: 180px; 
+    background: #f5f5f7; 
+    border: 1px solid #ccc; 
+    margin: 20px auto; 
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    text-align: center !important;
+    font-family: monospace; 
+    font-size: 12px;
+}
+
+    </style>
+</head>
+<body style="margin:0; padding:0; background:#FAFAFA; color:#0B0F14; font-family:sans-serif;">
+    <!-- Basit Kurumsal Menü ve Başlık -->
+    <header style="padding:40px 20px; text-align:center;">
+        <div style="font-size:24px; font-weight:800;">NFC-ID <span style="color:#0071e3;">DIGITAL</span></div>
+    </header>
+    <section style="text-align:center; padding:20px;">
+        <h1>Transparente Konditionen</h1>
+        <p style="color:#5B6472;">50€ Setup + 15€ Jährliche SaaS Cloud</p>
+    </section>
+
+    <!-- 50€ Donanım & 15€ Cloud Kartları -->
+    <section style="display:flex; justify-content:center; gap:20px; padding:20px; flex-wrap:wrap;">
+        <!-- Hardware Kart -->
+        <div style="background:white; border:1px solid #eee; padding:30px; border-radius:12px; width:300px; text-align:center;">
+            <h3>Hardware Setup</h3>
+            <div style="font-size:30px; font-weight:700;">50,00 €</div>
+            <p>Einmalig</p>
+            <button onclick="openPayment('50.00', 'Hardware')" style="width:100%; background:#000; color:white; border:none; padding:10px; margin-top:20px;">Wählen</button>
+        </div>
+        <!-- SaaS Kart -->
+        <div style="background:white; border:2px solid #0071e3; padding:30px; border-radius:12px; width:300px; text-align:center;">
+            <h3>SaaS Cloud</h3>
+            <div style="font-size:30px; font-weight:700; color:#0071e3;">15,00 €</div>
+            <p>Jährlich</p>
+            <button onclick="openPayment('15.00', 'SaaS')" style="width:100%; background:#0071e3; color:white; border:none; padding:10px; margin-top:20px;">Aktivieren</button>
+        </div>
+    </section>
+</body>
+<!-- GIZLI ÖDEME POP-UP (MODAL) PENCERESI -->
+<div id="payModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center; z-index:1000; padding:20px;">
+    <div style="background:white; padding:35px; border-radius:16px; max-width:420px; width:100%; text-align:center; box-shadow: 0 24px 48px rgba(0,0,0,0.1);">
+        <h3 id="modalTitle" style="font-size:22px; margin:0 0 10px 0;">Rechnungsbetrag</h3>
+        <p style="color:#5B6472; font-size:14px; margin:0 0 25px 0;">NFC-ID Digital Solutions • B2B Überweisung</p>
+        
+        <!-- TAM ORTALANMIŞ GIROCODE ALANI -->
+        <div class="qr-box-fix">
+            [ GiroCode QR ]
+        </div>
+        
+        <!-- ADIM ADIM ALMANCA ÖDEME KILAVUZU -->
+        <div style="text-align:left; background:#f5f5f7; padding:15px; border-radius:10px; margin:20px 0; font-size:13px; line-height:1.5; color:#1d1d1f;">
+            <b style="color:#0071e3; display:block; margin-bottom:5px;">So funktioniert die Zahlung:</b>
+            1. Öffnen Sie Ihre **Sparkasse / Bank App** auf dem Smartphone.<br>
+            2. Wählen Sie die Funktion **"GiroCode scannen"** (Kamera).<br>
+            3. Scannen Sie diesen QR-Code vom Bildschirm.<br>
+            4. IBAN und Betrag werden automatisch eingetragen. Direkt freigeben.
+        </div>
+        
+        <p style="font-size:12px; font-weight:600; color:#86868b; margin-top:15px;">Unterstützt durch Sparkasse Neuss Echtzeit-Überweisung</p>
+        <button onclick="closePayment()" style="width:100%; background:#000; color:white; border:none; padding:14px; border-radius:8px; margin-top:15px; font-weight:600; cursor:pointer; transition: background 0.2s;">Fenster schließen</button>
+    </div>
+</div>
+
+        <!-- YARIN BURAYA SENIN PARLAYAN GIROCODE QR GÖRSELINI KOYACAĞIZ -->
+        <div style="width:180px; height:180px; background:#f5f5f7; border:1px solid #ccc; margin:20px auto; display:flex; align-items:center; justify-content:center; font-family:monospace; font-size:12px;">
+            [ GiroCode QR ]
+        </div>
+        
+        <p style="font-size:14px; font-weight:600; color:#0071e3;">Sparkasse Neuss Havale Altyapısı</p>
+        <button onclick="closePayment()" style="width:100%; background:#000; color:white; border:none; padding:12px; border-radius:8px; margin-top:10px; cursor:pointer;">Schließen</button>
+    </div>
+</div>
+<script>
+    // Esnaf paketi seçtiğinde pop-up penceresini açan akıllı SaaS fonksiyonu
+    function openPayment(betrag, paketName) {
+        document.getElementById('payModal').style.removeAttribute ? document.getElementById('payModal').style.removeAttribute('display') : document.getElementById('payModal').style.display = 'flex';
+        document.getElementById('modalTitle').textContent = paketName + ' - ' + betrag + ' €';
+    }
+
+    // Kapat butonuna basınca pencereyi jilet gibi gizleyen fonksiyon
+    function closePayment() {
+        document.getElementById('payModal').style.display = 'none';
+    }
+
+    // İlk açılışta modalın görünmemesini kesinleştirmek için ilk düzeltme
+    document.getElementById('payModal').style.display = 'none';
+</script>
